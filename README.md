@@ -48,7 +48,7 @@ Sistem ini memiliki dua peran utama: **User** (Mahasiswa, Dosen, Staf) dan **Adm
 
 1.  **Clone repository ini:**
     ```bash
-    git clone [https://github.com/](https://github.com/)[username-anda]/balikin.git
+    git clone [https://github.com/](https://github.com/)frdynsh/balikin.git
     cd balikin
     ```
 
