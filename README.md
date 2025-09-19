@@ -38,9 +38,9 @@ Sistem ini memiliki dua peran utama: **User** (Mahasiswa, Dosen, Staf) dan **Adm
 
 | Nama Anggota        | NIM           | Peran & Tanggung Jawab                                     |
 | ------------------- | ------------- | ---------------------------------------------------------- |
-| **[Nama Orang 1]** | `[NIM Orang 1]` | **Backend**: Database, Autentikasi, Role & Manajemen User.   |
-| **[Nama Orang 2]** | `[NIM Orang 2]` | **Backend & Frontend**: Modul Lapor & Lihat Barang Hilang.   |
-| **[Nama Orang 3]** | `[NIM Orang 3]` | **Backend & Frontend**: Modul Barang Temuan & Validasi Admin. |
+| **Ferdi Yansah** | `[NIM Orang 1]` | **Backend**: Database, Autentikasi, Role & Manajemen User.   |
+| **Erika Sita Dewi** | `[NIM Orang 2]` | **Backend & Frontend**: Modul Lapor & Lihat Barang Hilang.   |
+| **Ariella Chandra Naya** | `[NIM Orang 3]` | **Backend & Frontend**: Modul Barang Temuan & Validasi Admin. |
 
 ---
 
