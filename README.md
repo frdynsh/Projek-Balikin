@@ -7,55 +7,84 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+# Balikin - Sistem Lost & Found Kampus
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**Balikin** adalah sebuah platform berbasis web yang dirancang untuk membantu komunitas kampus dalam melaporkan dan menemukan barang yang hilang di area universitas. Proyek ini dibangun menggunakan framework Laravel 12 sebagai tugas akhir mata kuliah Pemrograman Framework Web.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+---
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## 📋 Fitur Utama
 
-## Learning Laravel
+Sistem ini memiliki dua peran utama: **User** (Mahasiswa, Dosen, Staf) dan **Admin**.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+#### Fitur untuk User:
+-   🔐 **Autentikasi**: Register, login, dan logout.
+-   👤 **Manajemen Profil**: Mengubah informasi profil pribadi.
+-   [cite_start]📄 **Lapor Barang Hilang**: Membuat laporan kehilangan barang lengkap dengan nama barang, deskripsi, tanggal, lokasi, dan foto[cite: 318, 327].
+-   [cite_start]🙋 **Lapor Barang Temuan**: Membuat laporan penemuan barang[cite: 55, 125].
+-   [cite_start]🔍 **Lihat Daftar Barang**: Menelusuri daftar barang yang hilang dan ditemukan yang sudah divalidasi[cite: 61, 62, 349].
+-   [cite_start]✏️ **Kelola Laporan**: Mengedit dan menghapus laporan milik sendiri[cite: 57, 58, 59, 60].
+-   [cite_start]🔎 **Pencarian**: Mencari barang spesifik dari daftar yang ada[cite: 63].
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+#### Fitur untuk Admin:
+-   🔒 **Akses Terbatas**: Login khusus untuk admin.
+-   [cite_start]✅ **Validasi Laporan**: Menyetujui atau menolak laporan barang hilang/temuan yang dikirim oleh user[cite: 56, 104, 381].
+-   [cite_start]👥 **Manajemen User**: Menambah atau menghapus akun user yang terdaftar di sistem[cite: 64, 153, 425, 426].
+-   📊 **Dashboard**: Melihat semua daftar barang yang dilaporkan, baik yang sudah divalidasi maupun yang belum.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## 🚀 Teknologi yang Digunakan
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+* **Backend**: PHP 8.x, Laravel 12
+* **Frontend**: HTML, CSS, JavaScript, Blade Template Engine
+* **Database**: MySQL
+* **Development Tools**: Composer, Git, GitHub
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+## 🧑‍💻 Tim Pengembang
 
-## Contributing
+| Nama Anggota        | NIM           | Peran & Tanggung Jawab                                     |
+| ------------------- | ------------- | ---------------------------------------------------------- |
+| **Ferdi Yansah** | `2310631170084` | **Backend**: Database, Autentikasi, Role & Manajemen User.   |
+| **Erika Sita Dewi** | `2310631170` | **Backend & Frontend**: Modul Lapor & Lihat Barang Hilang.   |
+| **Ariella Chandra Naya** | `2310631170` | **Backend & Frontend**: Modul Barang Temuan & Validasi Admin. |
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+---
 
-## Code of Conduct
+## ⚙️ Panduan Instalasi (Lokal)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+1.  **Clone repository ini:**
+    ```bash
+    git clone [https://github.com/](https://github.com/)[username-anda]/balikin.git
+    cd balikin
+    ```
 
-## Security Vulnerabilities
+2.  **Install dependencies:**
+    ```bash
+    composer install
+    ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+3.  **Setup file .env:**
+    ```bash
+    cp .env.example .env
+    ```
+    * Buat database baru (misal: `db_balikin`).
+    * Sesuaikan konfigurasi database (`DB_DATABASE`, `DB_USERNAME`, `DB_PASSWORD`) di file `.env`.
 
-## License
+4.  **Generate application key:**
+    ```bash
+    php artisan key:generate
+    ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+5.  **Jalankan migrasi database:**
+    ```bash
+    php artisan migrate
+    ```
+
+6.  **Jalankan server development:**
+    ```bash
+    php artisan serve
+    ```
+    Aplikasi akan berjalan di `http://127.0.0.1:8000`.
