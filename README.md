@@ -48,8 +48,8 @@ Sistem ini memiliki dua peran utama: **User** (Mahasiswa, Dosen, Staf) dan **Adm
 | Nama Anggota        | NIM           | Peran & Tanggung Jawab                                     |
 | ------------------- | ------------- | ---------------------------------------------------------- |
 | **Ferdi Yansah** | `2310631170084` | **Backend**: Database, Autentikasi, Role & Manajemen User.   |
-| **Erika Sita Dewi** | `2310631170` | **Backend & Frontend**: Modul Lapor & Lihat Barang Hilang.   |
-| **Ariella Chandra Naya** | `2310631170` | **Backend & Frontend**: Modul Barang Temuan & Validasi Admin. |
+| **Erika Sita Dewi** | `2310631170078` | **Backend & Frontend**: Modul Lapor & Lihat Barang Hilang.   |
+| **Ariella Chandra Naya** | `2310631170006` | **Backend & Frontend**: Modul Barang Temuan & Validasi Admin. |
 
 ---
 
