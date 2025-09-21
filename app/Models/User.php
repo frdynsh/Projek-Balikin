@@ -21,6 +21,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'nim',
+        'nip',
+        'jurusan',
+        'nomor_telepon',
+        'role',
     ];
 
     /**
@@ -44,5 +49,21 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Mendapatkan semua laporan barang hilang yang dimiliki oleh user ini.
+     */
+    public function barangHilang()
+    {
+        return $this->hasMany(BarangHilang::class);
+    }
+
+    /**
+     * Mendapatkan semua laporan barang temuan yang dibuat oleh user ini.
+     */
+    public function barangTemuan()
+    {
+        return $this->hasMany(BarangTemuan::class);
     }
 }
