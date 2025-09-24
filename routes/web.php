@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -17,15 +18,19 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// --- GRUP ROUTE KHUSUS UNTUK ADMIN ---
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     
-    // Halaman Dashboard Admin
+    // Alamat untuk Dashboard Admin
     Route::get('/dashboard', function () {
-        // Kita akan arahkan ke file view di: resources/views/admin/dashboard.blade.php
-        return view('admin.dashboard'); 
+        return view('admin.dashboard');
     })->name('dashboard');
 
-    // Nanti route untuk manajemen user kita letakkan di sini juga
+    // Alamat untuk menampilkan halaman daftar user
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
+    // Alamat untuk menghapus seorang user
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 });
 
 require __DIR__.'/auth.php';
