@@ -21,15 +21,14 @@ Route::middleware('auth')->group(function () {
 // --- GRUP ROUTE KHUSUS UNTUK ADMIN ---
 Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     
-    // Alamat untuk Dashboard Admin
     Route::get('/dashboard', function () {
         return view('admin.dashboard');
     })->name('dashboard');
 
-    // Alamat untuk menampilkan halaman daftar user
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create'); 
+    Route::post('/users', [UserController::class, 'store'])->name('users.store'); 
+    
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
-
-    // Alamat untuk menghapus seorang user
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 });
 

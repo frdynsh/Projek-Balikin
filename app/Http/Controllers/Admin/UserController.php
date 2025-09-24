@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
 
 class UserController extends Controller
 {
@@ -14,30 +16,49 @@ class UserController extends Controller
      */
     public function index()
     {
-        // 2. Ambil semua data user dari database, DENGAN BEBERAPA KONDISI:
-        //    - where('id', '!=', auth()->id()): JANGAN ambil data admin yang sedang login
-        //                                      agar tidak bisa menghapus diri sendiri.
-        //    - latest(): Urutkan hasilnya dari yang paling baru dibuat.
-        //    - paginate(10): Batasi data yang tampil hanya 10 per halaman.
         $users = User::where('id', '!=', auth()->id())->latest()->paginate(10);
-
-        // 3. Kirim data users yang sudah diambil ke file view.
-        //    File view-nya akan berlokasi di 'resources/views/admin/users/index.blade.php'
         return view('admin.users.index', compact('users'));
     }
 
     /**
+     * FUNGSI BARU: Menampilkan formulir untuk membuat user baru.
+     */
+    public function create()
+    {
+        return view('admin.users.create');
+    }
+
+    /**
+     * FUNGSI BARU: Menyimpan user baru ke database.
+     */
+    public function store(Request $request)
+    {
+        // 1. Validasi data yang masuk dari formulir
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'role' => ['required', 'in:admin,user'], // Memastikan role yang dipilih valid
+        ]);
+
+        // 2. Buat user baru di database
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => $request->role,
+        ]);
+
+        // 3. Kembali ke halaman daftar user dengan pesan sukses
+        return redirect()->route('admin.users.index')->with('success', 'User baru berhasil ditambahkan.');
+    }
+
+    /**
      * Menghapus user dari database.
-     * Fungsi ini akan dipanggil saat admin mengklik tombol "Hapus".
-     * Laravel secara ajaib akan langsung memberikan data user yang akan dihapus ($user).
      */
     public function destroy(User $user)
     {
-        // 4. Hapus data user yang dipilih dari database.
         $user->delete();
-
-        // 5. Kembali ke halaman daftar user (admin.users.index) dengan membawa
-        //    pesan sukses yang akan ditampilkan sebagai notifikasi.
         return redirect()->route('admin.users.index')->with('success', 'User berhasil dihapus.');
     }
 }
