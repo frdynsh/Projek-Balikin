@@ -44,8 +44,8 @@ class UserSeeder extends Seeder
         ]);
 
         User::create([
-            'name' => '[Nama Teman 2]', // Ganti dengan nama teman Anda
-            'email' => 'teman2@balikin.test',
+            'name' => 'Ariella', // Ganti dengan nama teman Anda
+            'email' => 'ariella@balikin.test',
             'password' => Hash::make('password'), // password: password
             'nim' => 'D0987654321', // Ganti dengan NIM teman Anda
             'jurusan' => 'Sistem Informasi',
@@ -54,8 +54,8 @@ class UserSeeder extends Seeder
         ]);
 
         User::create([
-            'name' => '[Nama Teman 3]', // Ganti dengan nama teman Anda
-            'email' => 'teman3@balikin.test',
+            'name' => 'Erika', // Ganti dengan nama teman Anda
+            'email' => 'erika@balikin.test',
             'password' => Hash::make('password'), // password: password
             'nim' => 'D5432109876', // Ganti dengan NIM teman Anda
             'jurusan' => 'Desain Komunikasi Visual',
