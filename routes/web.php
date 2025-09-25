@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\FoundItemController;
+
 
 
 Route::get('/', function () {
@@ -37,5 +39,21 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 });
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/barang_temuan', [FoundItemController::class, 'index'])
+        ->name('barang_temuan.index');
+
+    Route::get('/barang_temuan/create', [FoundItemController::class, 'create'])
+        ->name('barang_temuan.create');
+
+    Route::post('/barang_temuan', [FoundItemController::class, 'store'])
+        ->name('barang_temuan.store');
+
+    Route::get('/barang_temuan/{barangTemuan}', [FoundItemController::class, 'show'])
+        ->name('barang_temuan.show');
+});
+
 
 require __DIR__.'/auth.php';
