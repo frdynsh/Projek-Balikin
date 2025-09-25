@@ -18,19 +18,19 @@
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
             @include('layouts.navigation')
 
-            <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white dark:bg-gray-800 shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endisset
-
             <!-- Page Content -->
             <main>
                 {{ $slot }}
             </main>
+            
+            <footer class="bg-white dark:bg-gray-900" aria-labelledby="footer-heading">
+                <h2 id="footer-heading" class="sr-only">Footer</h2>
+                <div class="mx-auto max-w-7xl px-6 pb-8 lg:px-8">
+                    <div class="border-t border-gray-900/10 dark:border-white/10 pt-8 mt-16">
+                        <p class="text-center text-xs leading-5 text-gray-500">&copy; {{ date('Y') }} Balikin. Proyek Framework Web.</p>
+                    </div>
+                </div>
+            </footer>
         </div>
     </body>
 </html>

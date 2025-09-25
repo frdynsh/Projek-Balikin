@@ -6,7 +6,7 @@ use App\Models\BarangHilang;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class BarangHilangController extends Controller
+class LostItemController extends Controller
 {
     /**
      * Menampilkan daftar semua barang hilang yang sudah disetujui.
@@ -14,7 +14,7 @@ class BarangHilangController extends Controller
     public function index()
     {
         $barangHilangs = BarangHilang::where('status', 'diterima')->with('user')->latest()->paginate(9);
-        return view('lostitems.index', compact('barangHilangs'));
+        return view('lost-items.index', compact('barangHilangs'));
     }
 
     /**
@@ -22,7 +22,7 @@ class BarangHilangController extends Controller
      */
     public function create()
     {
-        return view('lostitems.create');
+        return view('lost-items.create');
     }
 
     /**
@@ -48,7 +48,7 @@ class BarangHilangController extends Controller
         // 3. Simpan data ke database
         $request->user()->barangHilang()->create($validatedData);
 
-        return redirect()->route('lostitems.index')->with('success', 'Laporan berhasil dibuat. Mohon tunggu validasi admin.');
+        return redirect()->route('lost-items.index')->with('success', 'Laporan berhasil dibuat. Mohon tunggu validasi admin.');
     }
 
     /**
@@ -61,7 +61,7 @@ class BarangHilangController extends Controller
         if ($barangHilang->status !== 'diterima' && (auth()->user()->role !== 'admin' && auth()->id() !== $barangHilang->user_id)) {
             abort(404); // Tampilkan halaman tidak ditemukan
         }
-        return view('lostitems.show', ['barangHilang' => $barangHilang]);
+        return view('lost-items.show', ['barangHilang' => $barangHilang]);
     }
 
     /**
@@ -74,7 +74,7 @@ class BarangHilangController extends Controller
             abort(403, 'ANDA TIDAK PUNYA HAK AKSES.');
         }
 
-        return view('lostitems.edit', compact('barangHilang'));
+        return view('lost-items.edit', compact('barangHilang'));
     }
 
     /**
@@ -108,7 +108,7 @@ class BarangHilangController extends Controller
         $validatedData['status'] = 'menunggu';
         $barangHilang->update($validatedData);
 
-        return redirect()->route('lostitems.index')->with('success', 'Laporan berhasil diperbarui dan akan divalidasi ulang oleh admin.');
+        return redirect()->route('lost-items.index')->with('success', 'Laporan berhasil diperbarui dan akan divalidasi ulang oleh admin.');
     }
 
     /**
@@ -127,7 +127,7 @@ class BarangHilangController extends Controller
         }
         $barangHilang->delete();
 
-        return redirect()->route('lostitems.index')->with('success', 'Laporan berhasil dihapus.');
+        return redirect()->route('lost-items.index')->with('success', 'Laporan berhasil dihapus.');
     }
 }
 

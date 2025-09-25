@@ -12,12 +12,12 @@ class FoundItemController extends Controller
     public function index()
     {
         $barangTemuans = BarangTemuan::where('status', 'diterima')->with('user')->latest()->paginate(9);
-        return view('barang-temuan.index', compact('barangTemuans'));
+        return view('found-items.index', compact('barangTemuans'));
     }
 
     public function create()
     {
-        return view('barang-temuan.create');
+        return view('found-items.create');
     }
 
     public function store(Request $request)
@@ -31,12 +31,12 @@ class FoundItemController extends Controller
         ]);
 
         if ($request->hasFile('gambar')) {
-            $path = $request->file('gambar')->store('public/barang-temuan');
+            $path = $request->file('gambar')->store('public/found-items');
             $validatedData['gambar'] = $path;
         }
 
         $request->user()->barangTemuan()->create($validatedData);
 
-        return redirect()->route('barang-temuan.index')->with('success', 'Laporan barang temuan berhasil dibuat. Mohon tunggu validasi dari admin.');
+        return redirect()->route('found-items.index')->with('success', 'Laporan barang temuan berhasil dibuat. Mohon tunggu validasi dari admin.');
     }
 }

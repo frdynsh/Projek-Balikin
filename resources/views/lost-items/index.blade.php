@@ -4,7 +4,7 @@
             <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
                 {{ __('Daftar Barang Hilang') }}
             </h2>
-            <a href="{{ route('lostitems.create') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
+            <a href="{{ route('lost-items.create') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 dark:bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-white dark:text-gray-800 uppercase tracking-widest hover:bg-gray-700 dark:hover:bg-white focus:bg-gray-700 dark:focus:bg-white active:bg-gray-900 dark:active:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 dark:focus:ring-offset-gray-800 transition ease-in-out duration-150">
                 Lapor Kehilangan
             </a>
         </div>
@@ -33,12 +33,12 @@
                             <h3 class="font-semibold text-lg text-gray-900 dark:text-gray-100">{{ $barang->nama_barang }}</h3>
                             <p class="mt-2 text-gray-800 dark:text-gray-200 flex-grow">{{ Str::limit($barang->deskripsi_barang, 100) }}</p>
                             <div class="mt-4 pt-4 border-t dark:border-gray-600 flex justify-between items-center">
-                                <a href="{{ route('lostitems.show', $barang) }}" class="text-indigo-600 dark:text-indigo-400 hover:underline">Lihat Detail</a>
+                                <a href="{{ route('lost-items.show', $barang) }}" class="text-indigo-600 dark:text-indigo-400 hover:underline">Lihat Detail</a>
                                 {{-- Hanya tampilkan tombol Edit & Hapus jika user adalah pemilik laporan atau admin --}}
                                 @if (auth()->id() === $barang->user_id || auth()->user()->role === 'admin')
                                     <div class="flex space-x-2">
-                                        <a href="{{ route('lostitems.edit', $barang) }}" class="text-sm text-yellow-600 dark:text-yellow-400 hover:underline">Edit</a>
-                                        <form action="{{ route('lostitems.destroy', $barang) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus laporan ini?');">
+                                        <a href="{{ route('lost-items.edit', $barang) }}" class="text-sm text-yellow-600 dark:text-yellow-400 hover:underline">Edit</a>
+                                        <form action="{{ route('lost-items.destroy', $barang) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus laporan ini?');">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="text-sm text-red-600 dark:text-red-400 hover:underline">Hapus</button>
