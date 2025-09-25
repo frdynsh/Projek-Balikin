@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FoundItemController;
 use App\Http\Controllers\BarangHilangController;
 
 Route::get('/', function () {
@@ -18,6 +19,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    Route::resource('barang-temuan', FoundItemController::class)->names('barang-temuan');
     Route::resource('lostitems', BarangHilangController::class)->names('lostitems');
 });
 
@@ -39,5 +41,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
 
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 });
+
 
 require __DIR__.'/auth.php';
