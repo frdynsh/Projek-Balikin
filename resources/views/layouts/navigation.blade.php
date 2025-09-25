@@ -10,17 +10,18 @@
                     </a>
                 </div>
 
-            <!-- Navigation Links -->
-            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                <!-- Dashboard -->
-                <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                    {{ __('Dashboard') }}
-                </x-nav-link>
-
-                <x-nav-link :href="route('barang-temuan.index')" :active="request()->routeIs('barang-temuan.*')">
-                    {{ __('Barang Temuan') }}
-                </x-nav-link>
-
+                <!-- Navigation Links -->
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                        {{ __('Dashboard') }}
+                    </x-nav-link>
+                     <x-nav-link :href="route('lostitems.index')" :active="request()->routeIs('lostitems.*')">
+                        {{ __('Barang Hilang') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('barang-temuan.index')" :active="request()->routeIs('barang-temuan.*')">
+                        {{ __('Barang Temuan') }}
+                    </x-nav-link>
+                </div>
             </div>
 
 

@@ -4,8 +4,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FoundItemController;
-
-
+use App\Http\Controllers\BarangHilangController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -21,6 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('barang-temuan', FoundItemController::class)->names('barang-temuan');
+    Route::resource('lostitems', BarangHilangController::class)->names('lostitems');
 });
 
 // --- GRUP ROUTE KHUSUS UNTUK ADMIN ---
