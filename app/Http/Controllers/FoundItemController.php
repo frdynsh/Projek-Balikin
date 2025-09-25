@@ -6,14 +6,14 @@ use App\Models\BarangTemuan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-// NAMA CLASS DISESUAIKAN
 class FoundItemController extends Controller
 {
     public function index()
     {
-        $barangTemuans = BarangTemuan::where('status', 'diterima')->with('user')->latest()->paginate(9);
+        $barangTemuans = BarangTemuan::orderBy('created_at', 'desc')->paginate(10);
         return view('barang-temuan.index', compact('barangTemuans'));
     }
+
 
     public function create()
     {
