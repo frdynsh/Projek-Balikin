@@ -26,6 +26,7 @@
                 <x-nav-link :href="route('barang_temuan.create')" :active="request()->routeIs('barang_temuan.create')">
                     {{ __('Laporkan Barang Temuan') }}
                 </x-nav-link>
+
             </div>
 
 

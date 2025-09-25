@@ -3,7 +3,7 @@
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\FoundItemController;
+use App\Http\Controllers\FoundItemController;
 
 
 
@@ -19,6 +19,21 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/barang_temuan', [FoundItemController::class, 'index'])
+        ->name('barang_temuan.index');
+
+    Route::get('/barang_temuan/create', [FoundItemController::class, 'create'])
+        ->name('barang_temuan.create');
+
+    Route::post('/barang_temuan', [FoundItemController::class, 'store'])
+        ->name('barang_temuan.store');
+
+    Route::get('/barang_temuan/{barangTemuan}', [FoundItemController::class, 'show'])
+        ->name('barang_temuan.show');
+
+    Route::get('/barang_temuan/{barangTemuan}/edit', [FoundItemController::class, 'edit'])
+        ->name('barang_temuan.edit');
 });
 
 // --- GRUP ROUTE KHUSUS UNTUK ADMIN ---
@@ -38,21 +53,6 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::patch('/users/{user}', [UserController::class, 'update'])->name('users.update');
 
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
-});
-
-
-Route::middleware('auth')->group(function () {
-    Route::get('/barang_temuan', [FoundItemController::class, 'index'])
-        ->name('barang_temuan.index');
-
-    Route::get('/barang_temuan/create', [FoundItemController::class, 'create'])
-        ->name('barang_temuan.create');
-
-    Route::post('/barang_temuan', [FoundItemController::class, 'store'])
-        ->name('barang_temuan.store');
-
-    Route::get('/barang_temuan/{barangTemuan}', [FoundItemController::class, 'show'])
-        ->name('barang_temuan.show');
 });
 
 
