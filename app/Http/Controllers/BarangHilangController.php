@@ -54,6 +54,6 @@ class BarangHilangController extends Controller
         $request->user()->barangHilang()->create($validatedData);
 
         // 4. Arahkan kembali ke halaman daftar dengan pesan sukses
-        return redirect()->route('barang-hilang.index')->with('success', 'Laporan barang hilang berhasil dibuat. Mohon tunggu validasi dari admin.');
+        return redirect()->route('lostitems.index')->with('success', 'Laporan barang hilang berhasil dibuat. Mohon tunggu validasi dari admin.');
     }
 }
