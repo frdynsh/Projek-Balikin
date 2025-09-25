@@ -20,20 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/barang_temuan', [FoundItemController::class, 'index'])
-        ->name('barang_temuan.index');
-
-    Route::get('/barang_temuan/create', [FoundItemController::class, 'create'])
-        ->name('barang_temuan.create');
-
-    Route::post('/barang_temuan', [FoundItemController::class, 'store'])
-        ->name('barang_temuan.store');
-
-    Route::get('/barang_temuan/{barangTemuan}', [FoundItemController::class, 'show'])
-        ->name('barang_temuan.show');
-
-    Route::get('/barang_temuan/{barangTemuan}/edit', [FoundItemController::class, 'edit'])
-        ->name('barang_temuan.edit');
+    Route::resource('barang-temuan', FoundItemController::class)->names('barang-temuan');
 });
 
 // --- GRUP ROUTE KHUSUS UNTUK ADMIN ---

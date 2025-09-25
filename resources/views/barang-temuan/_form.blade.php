@@ -33,5 +33,5 @@
 
 <div class="text-end">
     <button type="submit" class="btn btn-primary px-4">{{ $submitText ?? 'Simpan' }}</button>
-    <a href="{{ route('barang_temuan.index') }}" class="btn btn-secondary">Batal</a>
+    <a href="{{ route('barang-temuan.index') }}" class="btn btn-secondary">Batal</a>
 </div>

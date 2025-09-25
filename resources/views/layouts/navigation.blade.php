@@ -17,14 +17,8 @@
                     {{ __('Dashboard') }}
                 </x-nav-link>
 
-                <!-- Barang Temuan -->
-                <x-nav-link :href="route('barang_temuan.index')" :active="request()->routeIs('barang_temuan.*')">
+                <x-nav-link :href="route('barang-temuan.index')" :active="request()->routeIs('barang-temuan.*')">
                     {{ __('Barang Temuan') }}
-                </x-nav-link>
-
-                <!-- Laporkan Barang Temuan -->
-                <x-nav-link :href="route('barang_temuan.create')" :active="request()->routeIs('barang_temuan.create')">
-                    {{ __('Laporkan Barang Temuan') }}
                 </x-nav-link>
 
             </div>
