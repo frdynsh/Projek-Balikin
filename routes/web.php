@@ -1,10 +1,13 @@
 <?php
 
-use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\FoundItemController;
 use App\Http\Controllers\BarangHilangController;
+
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ValidasiController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -35,11 +38,16 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
     Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('/users', [UserController::class, 'store'])->name('users.store');
-
     Route::get('/users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
     Route::patch('/users/{user}', [UserController::class, 'update'])->name('users.update');
-
     Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+
+    // --- ROUTE BARU UNTUK VALIDASI LAPORAN ---
+    Route::get('/validasi', [ValidasiController::class, 'index'])->name('validasi.index');
+    Route::patch('/validasi/barang-hilang/{barangHilang}/setujui', [ValidasiController::class, 'setujuiBarangHilang'])->name('validasi.hilang.setujui');
+    Route::patch('/validasi/barang-hilang/{barangHilang}/tolak', [ValidasiController::class, 'tolakBarangHilang'])->name('validasi.hilang.tolak');
+    Route::patch('/validasi/barang-temuan/{barangTemuan}/setujui', [ValidasiController::class, 'setujuiBarangTemuan'])->name('validasi.temuan.setujui');
+    Route::patch('/validasi/barang-temuan/{barangTemuan}/tolak', [ValidasiController::class, 'tolakBarangTemuan'])->name('validasi.temuan.tolak');
 });
 
 

@@ -1,35 +1,88 @@
-@extends('layouts.app')
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+            {{ __('Validasi Laporan') }}
+        </h2>
+    </x-slot>
 
-@section('content')
-<div class="container">
-    <h1>Validasi Barang Temuan</h1>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+            
+            @if (session('success'))
+                <div class="p-4 mb-4 bg-green-200 text-green-800 rounded-lg dark:bg-green-800 dark:text-green-200">
+                    {{ session('success') }}
+                </div>
+            @endif
 
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
-    @endif
-
-    <div class="row">
-        @forelse($posts as $post)
-            <div class="col-md-6 mb-3">
-                <div class="card p-3">
-                    <h5>{{ $post->nama_barang }}</h5>
-                    <p>{{ Str::limit($post->deskripsi_barang, 100) }}</p>
-                    <p><small>{{ $post->tgl_penemuan }} di {{ $post->lokasi_penemuan }}</small></p>
-
-                    <form action="{{ route('admin.validasi.approve', $post->id) }}" method="POST" style="display:inline;">
-                        @csrf
-                        <button class="btn btn-success">Setujui</button>
-                    </form>
-
-                    <form action="{{ route('admin.validasi.reject', $post->id) }}" method="POST" style="display:inline;">
-                        @csrf
-                        <button class="btn btn-danger">Tolak</button>
-                    </form>
+            <!-- TABEL VALIDASI BARANG HILANG -->
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <h3 class="text-lg font-medium">Laporan Barang Hilang Menunggu Persetujuan</h3>
+                    <div class="mt-4 overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                            <thead class="bg-gray-50 dark:bg-gray-600">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Barang</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Pelapor</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Tanggal Lapor</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                @forelse ($barangHilangPending as $barang)
+                                <tr>
+                                    <td class="px-6 py-4">{{ $barang->nama_barang }}</td>
+                                    <td class="px-6 py-4">{{ $barang->user->name }}</td>
+                                    <td class="px-6 py-4">{{ $barang->created_at->isoFormat('D MMM YYYY') }}</td>
+                                    <td class="px-6 py-4 flex items-center space-x-4">
+                                        <form action="{{ route('admin.validasi.hilang.setujui', $barang) }}" method="POST">@csrf @method('PATCH')<button type="submit" class="text-green-600 hover:text-green-900 font-semibold">Setujui</button></form>
+                                        <form action="{{ route('admin.validasi.hilang.tolak', $barang) }}" method="POST">@csrf @method('PATCH')<button type="submit" class="text-red-600 hover:text-red-900 font-semibold">Tolak</button></form>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr><td colspan="4" class="px-6 py-4 text-center">Tidak ada laporan barang hilang yang menunggu persetujuan.</td></tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-        @empty
-            <p>Tidak ada laporan yang menunggu validasi.</p>
-        @endforelse
+
+            <!-- TABEL VALIDASI BARANG TEMUAN -->
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 text-gray-900 dark:text-gray-100">
+                     <h3 class="text-lg font-medium">Laporan Barang Temuan Menunggu Persetujuan</h3>
+                     <div class="mt-4 overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                            <thead class="bg-gray-50 dark:bg-gray-600">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Barang</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Pelapor</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Tanggal Lapor</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                                @forelse ($barangTemuanPending as $barang)
+                                <tr>
+                                    <td class="px-6 py-4">{{ $barang->nama_barang }}</td>
+                                    <td class="px-6 py-4">{{ $barang->user->name }}</td>
+                                    <td class="px-6 py-4">{{ $barang->created_at->isoFormat('D MMM YYYY') }}</td>
+                                    <td class="px-6 py-4 flex items-center space-x-4">
+                                        <form action="{{ route('admin.validasi.temuan.setujui', $barang) }}" method="POST">@csrf @method('PATCH')<button type="submit" class="text-green-600 hover:text-green-900 font-semibold">Setujui</button></form>
+                                        <form action="{{ route('admin.validasi.temuan.tolak', $barang) }}" method="POST">@csrf @method('PATCH')<button type="submit" class="text-red-600 hover:text-red-900 font-semibold">Tolak</button></form>
+                                    </td>
+                                </tr>
+                                @empty
+                                <tr><td colspan="4" class="px-6 py-4 text-center">Tidak ada laporan barang temuan yang menunggu persetujuan.</td></tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                     </div>
+                </div>
+            </div>
+
+        </div>
     </div>
-</div>
-@endsection
+</x-app-layout>
+

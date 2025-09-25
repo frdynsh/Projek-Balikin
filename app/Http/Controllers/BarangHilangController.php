@@ -9,14 +9,11 @@ use Illuminate\Support\Facades\Storage;
 class BarangHilangController extends Controller
 {
     /**
-     * Menampilkan daftar barang hilang yang sudah disetujui.
+     * Menampilkan daftar semua barang hilang yang sudah disetujui.
      */
     public function index()
     {
-        // Mengambil data dari tabel 'barang_hilangs' yang statusnya 'diterima'
         $barangHilangs = BarangHilang::where('status', 'diterima')->with('user')->latest()->paginate(9);
-        
-        // Mengarahkan ke view 'lostitems.index'
         return view('lostitems.index', compact('barangHilangs'));
     }
 
@@ -25,7 +22,6 @@ class BarangHilangController extends Controller
      */
     public function create()
     {
-        // Mengarahkan ke view 'lostitems.create'
         return view('lostitems.create');
     }
 
@@ -34,26 +30,104 @@ class BarangHilangController extends Controller
      */
     public function store(Request $request)
     {
-        // 1. Validasi input sesuai dengan kolom di tabel 'barang_hilangs'
+        // 1. Validasi, pastikan ada aturan 'image'
         $validatedData = $request->validate([
             'nama_barang'       => 'required|string|max:255',
             'deskripsi_barang'  => 'required|string',
             'tgl_kehilangan'    => 'required|date',
             'lokasi_kehilangan' => 'required|string|max:255',
-            'gambar'            => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'gambar'            => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Maks 2MB
         ]);
 
-        // 2. Mengelola upload gambar dan menyimpan path-nya
+        // 2. Logika untuk menyimpan file jika validasi berhasil
         if ($request->hasFile('gambar')) {
             $path = $request->file('gambar')->store('public/barang-hilang');
             $validatedData['gambar'] = $path;
         }
 
-        // 3. Membuat entri baru di tabel 'barang_hilangs'
-        //    dan secara otomatis mengisi kolom 'user_id'
+        // 3. Simpan data ke database
         $request->user()->barangHilang()->create($validatedData);
 
-        // 4. Arahkan kembali ke halaman daftar dengan pesan sukses
-        return redirect()->route('barang-hilang.index')->with('success', 'Laporan barang hilang berhasil dibuat. Mohon tunggu validasi dari admin.');
+        return redirect()->route('lostitems.index')->with('success', 'Laporan berhasil dibuat. Mohon tunggu validasi admin.');
+    }
+
+    /**
+     * Menampilkan halaman detail untuk satu barang hilang.
+     */
+    public function show(BarangHilang $barangHilang)
+    {
+        // Keamanan: Hanya tampilkan detail jika statusnya 'diterima',
+        // atau jika yang melihat adalah admin atau pemilik laporan.
+        if ($barangHilang->status !== 'diterima' && (auth()->user()->role !== 'admin' && auth()->id() !== $barangHilang->user_id)) {
+            abort(404); // Tampilkan halaman tidak ditemukan
+        }
+        return view('lostitems.show', ['barangHilang' => $barangHilang]);
+    }
+
+    /**
+     * Menampilkan formulir untuk mengedit laporan.
+     */
+    public function edit(BarangHilang $barangHilang)
+    {
+        // Keamanan: Hanya pemilik laporan atau admin yang bisa mengedit.
+        if (auth()->id() !== $barangHilang->user_id && auth()->user()->role !== 'admin') {
+            abort(403, 'ANDA TIDAK PUNYA HAK AKSES.');
+        }
+
+        return view('lostitems.edit', compact('barangHilang'));
+    }
+
+    /**
+     * Memproses dan menyimpan perubahan dari form edit.
+     */
+    public function update(Request $request, BarangHilang $barangHilang)
+    {
+        // Keamanan: Hanya pemilik laporan atau admin yang bisa mengupdate.
+        if (auth()->id() !== $barangHilang->user_id && auth()->user()->role !== 'admin') {
+            abort(403, 'ANDA TIDAK PUNYA HAK AKSES.');
+        }
+
+        $validatedData = $request->validate([
+            'nama_barang'       => 'required|string|max:255',
+            'deskripsi_barang'  => 'required|string',
+            'tgl_kehilangan'    => 'required|date',
+            'lokasi_kehilangan' => 'required|string|max:255',
+            'gambar'            => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        if ($request->hasFile('gambar')) {
+            // Hapus gambar lama jika ada untuk menghemat ruang penyimpanan
+            if ($barangHilang->gambar) {
+                Storage::delete($barangHilang->gambar);
+            }
+            $path = $request->file('gambar')->store('public/barang-hilang');
+            $validatedData['gambar'] = $path;
+        }
+        
+        // Aturan bisnis: Setiap kali diedit, status kembali 'menunggu' untuk divalidasi ulang.
+        $validatedData['status'] = 'menunggu';
+        $barangHilang->update($validatedData);
+
+        return redirect()->route('lostitems.index')->with('success', 'Laporan berhasil diperbarui dan akan divalidasi ulang oleh admin.');
+    }
+
+    /**
+     * Menghapus laporan dari database.
+     */
+    public function destroy(BarangHilang $barangHilang)
+    {
+        // Keamanan: Hanya pemilik laporan atau admin yang bisa menghapus.
+        if (auth()->id() !== $barangHilang->user_id && auth()->user()->role !== 'admin') {
+            abort(403, 'ANDA TIDAK PUNYA HAK AKSES.');
+        }
+
+        // Hapus juga file gambar dari storage
+        if ($barangHilang->gambar) {
+            Storage::delete($barangHilang->gambar);
+        }
+        $barangHilang->delete();
+
+        return redirect()->route('lostitems.index')->with('success', 'Laporan berhasil dihapus.');
     }
 }
+
