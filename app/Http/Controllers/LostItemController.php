@@ -9,8 +9,20 @@ use Illuminate\Support\Facades\Storage;
 class LostItemController extends Controller
 {
     public function index()
-    {
-        $barangHilangs = BarangHilang::where('status', 'diterima')->with('user')->latest()->paginate(9);
+    {   
+        $search = request('search');
+
+        $query = BarangHilang::where('status', 'diterima');
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('nama_barang', 'like', '%' . $search . '%')
+                ->orWhere('deskripsi_barang', 'like', '%' . $search . '%');
+            });
+        }
+
+        $barangHilangs = $query->latest()->paginate(9);
+
         return view('lost-items.index', compact('barangHilangs'));
     }
 

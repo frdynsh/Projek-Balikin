@@ -13,7 +13,7 @@
             <!-- TABEL VALIDASI (PENDING) -->
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg border border-gray-100 dark:border-gray-700">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <h3 class="text-xl font-bold mb-4 border-b pb-2 dark:border-gray-700">Laporan Barang Hilang Menunggu Persetujuan</h3>
+                    <h3 class="text-xl font-bold mb-4 border-b pb-2 dark:border-gray-700">Menunggu Persetujuan</h3>
                     
                     <div class="mt-4 overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
@@ -63,7 +63,7 @@
             <!-- TABEL ARSIP (SELESAI, DITERIMA, DITOLAK) -->
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg border border-gray-100 dark:border-gray-700">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <h3 class="text-xl font-bold mb-4 border-b pb-2 dark:border-gray-700">Arsip Laporan Barang Hilang (Telah Diproses)</h3>
+                    <h3 class="text-xl font-bold mb-4 border-b pb-2 dark:border-gray-700">Arsip Laporan</h3>
                     <div class="mt-4 overflow-x-auto">
                         <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                             <thead class="bg-gray-50 dark:bg-gray-700">

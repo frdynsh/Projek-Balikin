@@ -1,9 +1,31 @@
 <x-app-layout>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <h2 class="mb-8 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Daftar Barang Hilang') }}
-            </h2>
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                    {{ __('Daftar Barang Hilang') }}
+                </h2>
+                <form action="{{ route('lost-items.index') }}" method="GET" class="w-full max-w-sm">
+                    <div class="relative">
+                        <input 
+                            type="text" 
+                            name="search" 
+                            placeholder="Cari nama barang..." 
+                            value="{{ request('search') }}"
+                            class="block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
+                        >
+                        @if (request('search'))
+                            <a href="{{ route('lost-items.index') }}" class="absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400 hover:text-gray-600 dark:hover:text-gray-200" title="Hapus Pencarian">
+                                ✕
+                            </a>
+                        @else
+                            <button type="submit" class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                            </button>
+                        @endif
+                    </div>
+                </form>
+            </div>
             @if (session('success'))
                 <div class="mb-6 p-4 bg-green-200 text-green-800 rounded-lg dark:bg-green-800 dark:text-green-200">
                     {{ session('success') }}

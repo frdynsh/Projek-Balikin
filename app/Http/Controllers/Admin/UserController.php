@@ -72,27 +72,19 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'role' => ['required', 'in:admin,user'],
-            'nim' => ['nullable', 'string', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'nip' => ['nullable', 'string', 'max:255', Rule::unique('users')->ignore($user->id)],
-            'jurusan' => ['nullable', 'string', 'max:255'],
-            'nomor_telepon' => ['nullable', 'string', 'max:255'],
-            'password' => ['nullable', 'confirmed', Rules\Password::defaults()], // Password tidak wajib diisi
+        $validatedData = $request->validate([
+            'role' => ['required', 'string', Rule::in(['user', 'admin'])],
         ]);
 
-        $userData = $request->only('name', 'email', 'role', 'nim', 'nip', 'jurusan', 'nomor_telepon');
-
-        // Hanya update password jika kolomnya diisi
-        if ($request->filled('password')) {
-            $userData['password'] = Hash::make($request->password);
+        if ($request->role === $user->role) {
+            return redirect()->route('admin.users.edit', $user)->with('warning', 'Tidak ada perubahan yang terdeteksi untuk diperbarui.');
         }
 
-        $user->update($userData);
+        $user->update([
+            'role' => $validatedData['role'],
+        ]);
 
-        return redirect()->route('admin.users.index')->with('success', 'Data user berhasil diperbarui.');
+        return redirect()->route('admin.users.index')->with('success', 'Role pengguna ' . $user->name . ' berhasil diperbarui dari ' . $user->role . ' menjadi ' . $validatedData['role'] . '.');
     }
 
     /**

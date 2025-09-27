@@ -13,8 +13,15 @@ class ValidasiBarangTemuanController extends Controller
      */
     public function index()
     {
-        $barangTemuanPending = BarangTemuan::where('status', 'menunggu')->with('user')->latest()->get();
-        $barangTemuanSelesai = BarangTemuan::where('status', 'selesai')->with('user')->latest()->get();
+        $barangTemuanPending = BarangTemuan::with('user')
+                                       ->where('status', 'menunggu') 
+                                       ->latest()
+                                       ->get();
+
+        $barangTemuanSelesai = BarangTemuan::with('user')
+                                        ->whereIn('status', ['diterima', 'ditolak', 'selesai'])
+                                        ->latest()
+                                        ->get();
 
         return view('admin.validasi.found-items.index', compact('barangTemuanPending', 'barangTemuanSelesai'));
     }
@@ -22,18 +29,18 @@ class ValidasiBarangTemuanController extends Controller
     /**
      * Menyetujui sebuah laporan barang temuan.
      */
-    public function setujui(BarangTemuan $barangTemuan)
+    public function setujui(BarangTemuan $foundItem)
     {
-        $barangTemuan->update(['status' => 'diterima']);
+        $foundItem->update(['status' => 'diterima']);
         return back()->with('success', 'Laporan barang temuan telah disetujui.');
     }
 
     /**
      * Menolak sebuah laporan barang temuan.
      */
-    public function tolak(BarangTemuan $barangTemuan)
+    public function tolak(BarangTemuan $foundItem)
     {
-        $barangTemuan->update(['status' => 'ditolak']);
+        $foundItem->update(['status' => 'ditolak']);
         return back()->with('success', 'Laporan barang temuan telah ditolak.');
     }
 }

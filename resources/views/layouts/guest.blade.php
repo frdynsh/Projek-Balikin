@@ -18,7 +18,7 @@
         <div class="min-h-screen lg:grid lg:grid-cols-2">
             
             <div class="hidden lg:flex items-center justify-center bg-white dark:bg-gray-900 p-12">
-                <img src="{{ asset('images/ilustrasi-login.png') }}" alt="Ilustrasi Lost and Found" class="max-w-lg w-full">
+                <img src="{{ asset('images/ilustrasi-login.png') }}" alt="Ilustrasi Lost and Found" class="max-w-sm w-full">
             </div>
 
             <div class="flex flex-col justify-center items-center p-6 sm:p-12 w-full bg-white dark:bg-gray-900">

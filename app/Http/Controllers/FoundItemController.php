@@ -13,7 +13,20 @@ class FoundItemController extends Controller
      */
     public function index()
     {
-        $barangTemuans = BarangTemuan::where('status', 'diterima')->with('user')->latest()->paginate(9);
+        $search = request('search');
+
+        $query = BarangTemuan::where('status', 'disetujui');
+
+        // Tambahkan logika pencarian
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('nama_barang', 'like', '%' . $search . '%')
+                ->orWhere('deskripsi_barang', 'like', '%' . $search . '%');
+            });
+        }
+
+        $barangTemuans = $query->latest()->paginate(9);
+
         return view('found-items.index', compact('barangTemuans'));
     }
 
