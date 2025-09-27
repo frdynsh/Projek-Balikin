@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Models\BarangHilang;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class ValidasiBarangHilangController extends Controller
         $barangHilangPending = BarangHilang::where('status', 'menunggu')->with('user')->latest()->get();
         $barangHilangSelesai = BarangHilang::where('status', 'selesai')->with('user')->latest()->get();
 
-        return view('admin.validasi.barang-hilang', compact('barangHilangPending', 'barangHilangSelesai'));
+        return view('admin.validasi.lost-items.index', compact('barangHilangPending', 'barangHilangSelesai'));
     }
 
     /**

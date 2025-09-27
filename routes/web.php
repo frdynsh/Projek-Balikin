@@ -8,6 +8,8 @@ use App\Http\Controllers\LostItemController;
 
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ValidasiController;
+use App\Http\Controllers\Admin\ValidasiBarangHilangController;
+use App\Http\Controllers\Admin\ValidasiBarangTemuanController;
 
 Route::get('/', function () {
     if (auth()->check()) {

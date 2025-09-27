@@ -94,8 +94,6 @@
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <!-- Hapus Permanen. Catatan: Saya menghapus onsubmit="return confirm(...)" karena dilarang.
-                                             Gunakan modal kustom di sini untuk konfirmasi penghapusan. -->
                                         <form action="{{ route('lost-items.destroy', $barang->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')

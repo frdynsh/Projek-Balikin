@@ -29,7 +29,7 @@
                         </div>
 
                         <div class="mt-6 pt-6 border-t dark:border-gray-600">
-                            <h4 class="font-semibold text-gray-900 dark:text-gray-100">Kontak Penemu:</h4>
+                            <h4 class="font-semibold text-gray-900 dark:text-gray-100">Kontak Pelapor:</h4>
                             @if ($barangHilang->user->nomor_telepon)
                                 @php
                                     // Membersihkan nomor telepon dari spasi atau strip
@@ -48,7 +48,7 @@
                                     Hubungi via WhatsApp
                                 </a>
                             @else
-                                <p class="mt-2 text-sm text-gray-500">Penemu tidak mencantumkan nomor telepon.</p>
+                                <p class="mt-2 text-sm text-gray-500">Pelapor tidak mencantumkan nomor telepon.</p>
                             @endif
                         </div>
                         
@@ -56,7 +56,7 @@
                         <div class="mt-6 pt-6 border-t dark:border-gray-600">
                             <h4 class="font-semibold text-gray-900 dark:text-gray-100">Kelola Laporan</h4>
                             <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Apakah barang ini sudah kembali ke tangan Anda?</p>
-                            <form method="POST" action="{{ route('lostitems.markAsDone', $barangHilang) }}" class="mt-4">
+                            <form method="POST" action="{{ route('lost-items.markAsDone', $barangHilang) }}" class="mt-4">
                                 @csrf
                                 @method('PATCH')
                                 <x-primary-button class="bg-blue-600 hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-800 focus:ring-blue-500">
