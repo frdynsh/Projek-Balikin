@@ -30,7 +30,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('lost-items', LostItemController::class)->names('lost-items');
+    Route::patch('lost-items/{lost_item}/mark-as-done', [\App\Http\Controllers\LostItemController::class, 'markAsDone'])->name('lost-items.markAsDone');
     Route::resource('found-items', FoundItemController::class)->names('found-items');
+    Route::patch('found-items/{found_item}/mark-as-done', [\App\Http\Controllers\FoundItemController::class, 'markAsDone'])->name('found-items.markAsDone');
 });
 
 // --- GRUP ROUTE KHUSUS UNTUK ADMIN ---
@@ -39,12 +41,14 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     // Route Manajemen User
     Route::resource('users', UserController::class);
 
-    // --- ROUTE BARU UNTUK VALIDASI LAPORAN ---
-    Route::get('/validasi', [ValidasiController::class, 'index'])->name('validasi.index');
-    Route::patch('/validasi/barang-hilang/{barangHilang}/setujui', [ValidasiController::class, 'setujuiBarangHilang'])->name('validasi.hilang.setujui');
-    Route::patch('/validasi/barang-hilang/{barangHilang}/tolak', [ValidasiController::class, 'tolakBarangHilang'])->name('validasi.hilang.tolak');
-    Route::patch('/validasi/barang-temuan/{barangTemuan}/setujui', [ValidasiController::class, 'setujuiBarangTemuan'])->name('validasi.temuan.setujui');
-    Route::patch('/validasi/barang-temuan/{barangTemuan}/tolak', [ValidasiController::class, 'tolakBarangTemuan'])->name('validasi.temuan.tolak');
+    // Rute untuk halaman validasi barang hilang
+    Route::get('/validasi/lost-items', [ValidasiBarangHilangController::class, 'index'])->name('validasi.lost-items.index');
+    Route::patch('/validasi/lost-items/{lost_item}/setujui', [ValidasiBarangHilangController::class, 'setujui'])->name('validasi.lost-items.setujui');
+    Route::patch('/validasi/lost-items/{lost_item}/tolak', [ValidasiBarangHilangController::class, 'tolak'])->name('validasi.lost-items.tolak');
+
+    Route::get('/validasi/found-items', [ValidasiBarangTemuanController::class, 'index'])->name('validasi.found-items.index');
+    Route::patch('/validasi/found-items/{found_item}/setujui', [ValidasiBarangTemuanController::class, 'setujui'])->name('validasi.found-items.setujui');
+    Route::patch('/validasi/found-items/{found_item}/tolak', [ValidasiBarangTemuanController::class, 'tolak'])->name('validasi.found-items.tolak');
 });
 
 

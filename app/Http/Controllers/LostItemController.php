@@ -8,83 +8,60 @@ use Illuminate\Support\Facades\Storage;
 
 class LostItemController extends Controller
 {
-    /**
-     * Menampilkan daftar semua barang hilang yang sudah disetujui.
-     */
     public function index()
     {
         $barangHilangs = BarangHilang::where('status', 'diterima')->with('user')->latest()->paginate(9);
         return view('lost-items.index', compact('barangHilangs'));
     }
 
-    /**
-     * Menampilkan formulir untuk membuat laporan baru.
-     */
     public function create()
     {
         return view('lost-items.create');
     }
 
-    /**
-     * Menyimpan laporan baru ke database.
-     */
     public function store(Request $request)
     {
-        // 1. Validasi, pastikan ada aturan 'image'
         $validatedData = $request->validate([
             'nama_barang'       => 'required|string|max:255',
             'deskripsi_barang'  => 'required|string',
             'tgl_kehilangan'    => 'required|date',
             'lokasi_kehilangan' => 'required|string|max:255',
-            'gambar'            => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // Maks 2MB
+            'gambar'            => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        // 2. Logika untuk menyimpan file jika validasi berhasil
         if ($request->hasFile('gambar')) {
-            $path = $request->file('gambar')->store('public/barang-hilang');
+            $path = $request->file('gambar')->store('barang-hilang', 'public');
             $validatedData['gambar'] = $path;
         }
 
-        // 3. Simpan data ke database
         $request->user()->barangHilang()->create($validatedData);
 
         return redirect()->route('lost-items.index')->with('success', 'Laporan berhasil dibuat. Mohon tunggu validasi admin.');
     }
 
-    /**
-     * Menampilkan halaman detail untuk satu barang hilang.
-     */
-    public function show(BarangHilang $barangHilang)
+    public function show(BarangHilang $lost_item)
     {
-        // Keamanan: Hanya tampilkan detail jika statusnya 'diterima',
-        // atau jika yang melihat adalah admin atau pemilik laporan.
-        if ($barangHilang->status !== 'diterima' && (auth()->user()->role !== 'admin' && auth()->id() !== $barangHilang->user_id)) {
-            abort(404); // Tampilkan halaman tidak ditemukan
+        if ($lost_item->status !== 'diterima') {
+            abort(404);
         }
-        return view('lost-items.show', ['barangHilang' => $barangHilang]);
+        
+        $lost_item->load('user');
+        return view('lost-items.show', ['barangHilang' => $lost_item]);
     }
 
-    /**
-     * Menampilkan formulir untuk mengedit laporan.
-     */
-    public function edit(BarangHilang $barangHilang)
+    public function edit(BarangHilang $lost_item)
     {
-        // Keamanan: Hanya pemilik laporan atau admin yang bisa mengedit.
-        if (auth()->id() !== $barangHilang->user_id && auth()->user()->role !== 'admin') {
-            abort(403, 'ANDA TIDAK PUNYA HAK AKSES.');
+        if (auth()->id() !== $lost_item->user_id) {
+            abort(403, 'ANDA TIDAK PUNYA HAK AKSES UNTUK MENGEDIT LAPORAN INI.');
         }
 
-        return view('lost-items.edit', compact('barangHilang'));
+        return view('lost-items.edit', ['barangHilang' => $lost_item]);
     }
 
-    /**
-     * Memproses dan menyimpan perubahan dari form edit.
-     */
-    public function update(Request $request, BarangHilang $barangHilang)
+    public function update(Request $request, BarangHilang $lost_item)
     {
-        // Keamanan: Hanya pemilik laporan atau admin yang bisa mengupdate.
-        if (auth()->id() !== $barangHilang->user_id && auth()->user()->role !== 'admin') {
-            abort(403, 'ANDA TIDAK PUNYA HAK AKSES.');
+        if (auth()->id() !== $lost_item->user_id) {
+            abort(403, 'ANDA TIDAK PUNYA HAK AKSES UNTUK MENGEDIT LAPORAN INI.');
         }
 
         $validatedData = $request->validate([
@@ -96,38 +73,37 @@ class LostItemController extends Controller
         ]);
 
         if ($request->hasFile('gambar')) {
-            // Hapus gambar lama jika ada untuk menghemat ruang penyimpanan
-            if ($barangHilang->gambar) {
-                Storage::delete($barangHilang->gambar);
-            }
-            $path = $request->file('gambar')->store('public/barang-hilang');
+            if ($lost_item->gambar) { Storage::delete($lost_item->gambar); }
+            $path = $request->file('gambar')->store('barang-hilang', 'public');
             $validatedData['gambar'] = $path;
         }
         
-        // Aturan bisnis: Setiap kali diedit, status kembali 'menunggu' untuk divalidasi ulang.
         $validatedData['status'] = 'menunggu';
-        $barangHilang->update($validatedData);
+        $lost_item->update($validatedData);
 
-        return redirect()->route('lost-items.index')->with('success', 'Laporan berhasil diperbarui dan akan divalidasi ulang oleh admin.');
+        return redirect()->route('lost-items.index')->with('success', 'Laporan berhasil diperbarui dan akan divalidasi ulang.');
     }
-
-    /**
-     * Menghapus laporan dari database.
-     */
-    public function destroy(BarangHilang $barangHilang)
+    public function markAsDone(BarangHilang $lost_item)
     {
-        // Keamanan: Hanya pemilik laporan atau admin yang bisa menghapus.
-        if (auth()->id() !== $barangHilang->user_id && auth()->user()->role !== 'admin') {
-            abort(403, 'ANDA TIDAK PUNYA HAK AKSES.');
+        if (auth()->id() !== $lost_item->user_id) {
+            abort(403);
+        }
+        $lost_item->update(['status' => 'selesai']);
+        return redirect()->route('lost-items.index')->with('success', 'Laporan telah ditandai sebagai selesai dan diarsipkan.');
+    }
+    /**
+     * Hanya admin yang bisa menghapus.
+     */
+    public function destroy(BarangHilang $lost_item)
+    {
+        if (auth()->user()->role !== 'admin') {
+            abort(403, 'HANYA ADMIN YANG DAPAT MENGHAPUS LAPORAN INI.');
         }
 
-        // Hapus juga file gambar dari storage
-        if ($barangHilang->gambar) {
-            Storage::delete($barangHilang->gambar);
-        }
-        $barangHilang->delete();
+        if ($lost_item->gambar) { Storage::delete($lost_item->gambar); }
+        $lost_item->delete();
 
-        return redirect()->route('lost-items.index')->with('success', 'Laporan berhasil dihapus.');
+        return redirect()->route('lost-items.index')->with('success', 'Laporan berhasil dihapus oleh Admin.');
     }
 }
 

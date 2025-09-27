@@ -12,17 +12,16 @@
     </head>
     <body class="font-sans antialiased">
         <div class="bg-white dark:bg-gray-900">
-            <!-- 1. Header & Navigasi Sederhana -->
             <header class="absolute inset-x-0 top-0 z-50">
                 <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
                     <div class="flex lg:flex-1">
                         <a href="/" class="-m-1.5 p-1.5 flex items-center space-x-2">
-                            <x-application-logo class="h-8 w-auto text-gray-800 dark:text-gray-200" />
+                            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="h-8 w-auto rounded-full text-gray-800 dark:text-gray-200" />
                             <span class="font-semibold text-xl text-gray-800 dark:text-gray-200">Balikin</span>
                         </a>
                     </div>
                     <div class="flex lg:flex-1 lg:justify-end space-x-6">
-                        <a href="{{ route('login') }}" class="text-sm font-semibold leading-6 text-gray-900 dark:text-white">Log in</a>
+                        <a href="{{ route('login') }}" class="text-sm font-semibold leading-6 text-gray-900 dark:text-white">Login</a>
                         <a href="{{ route('register') }}" class="text-sm font-semibold leading-6 text-gray-900 dark:text-white">Register</a>
                     </div>
                 </nav>
@@ -40,7 +39,7 @@
                         <h1 class="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-6xl">Kehilangan Barang di Kampus?</h1>
                         <p class="mt-6 text-lg leading-8 text-gray-600 dark:text-gray-300">Jangan panik. "Balikin" membantumu menemukan kembali barang berhargamu dan melaporkan barang yang kamu temukan. Platform Lost & Found untuk seluruh warga kampus.</p>
                         <div class="mt-10 flex items-center justify-center gap-x-6">
-                            <a href="{{ route('register') }}" class="rounded-md bg-indigo-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Gabung Sekarang</a>
+                            <a href="{{ route('register') }}" class="rounded-md bg-purple-600 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-purple-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-600">Gabung Sekarang</a>
                             <a href="{{ route('lost-items.index') }}" class="text-sm font-semibold leading-6 text-gray-900 dark:text-white">Lihat Barang Hilang <span aria-hidden="true">→</span></a>
                         </div>
                     </div>

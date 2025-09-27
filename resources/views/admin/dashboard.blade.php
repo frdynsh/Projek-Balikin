@@ -12,6 +12,10 @@
                     <h1>Selamat Datang, Admin! Anda berhasil masuk ke halaman khusus Admin.</h1>
                 </div>
             </div>
+            <div class="flex justify-center">
+                {{-- Anda bisa mengganti URL gambar ini dengan ilustrasi lain yang Anda suka --}}
+                <img src="{{ asset('images/ilustrasi-dashboard.png') }}" alt="Ilustrasi Lost and Found" class="max-w-sm w-full">
+            </div>
         </div>
     </div>
 </x-app-layout>

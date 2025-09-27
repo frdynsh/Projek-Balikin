@@ -16,12 +16,11 @@
     </head>
     <body class="font-sans text-gray-900 antialiased">
         <div class="min-h-screen lg:grid lg:grid-cols-2">
-            <!-- Kolom Kiri: Ilustrasi -->
-            <div class="hidden lg:flex items-center justify-center bg-gray-100 dark:bg-gray-800 p-12">
-                <img src="https://cdni.iconscout.com/illustration/premium/thumb/lost-and-found-service-6720130-5529528.png" alt="Ilustrasi Lost and Found" class="max-w-lg w-full">
+            
+            <div class="hidden lg:flex items-center justify-center bg-white dark:bg-gray-900 p-12">
+                <img src="{{ asset('images/ilustrasi-login.png') }}" alt="Ilustrasi Lost and Found" class="max-w-lg w-full">
             </div>
 
-            <!-- Kolom Kanan: Konten Form (Slot) -->
             <div class="flex flex-col justify-center items-center p-6 sm:p-12 w-full bg-white dark:bg-gray-900">
                 {{-- Di sinilah konten dari login.blade.php atau register.blade.php akan dimasukkan --}}
                 {{ $slot }}

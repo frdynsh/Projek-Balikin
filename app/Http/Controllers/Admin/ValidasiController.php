@@ -15,11 +15,17 @@ class ValidasiController extends Controller
      */
     public function index()
     {
-        // Kode ini sekarang akan berfungsi karena PHP sudah tahu di mana harus mencari BarangHilang dan BarangTemuan.
         $barangHilangPending = BarangHilang::where('status', 'menunggu')->with('user')->latest()->get();
         $barangTemuanPending = BarangTemuan::where('status', 'menunggu')->with('user')->latest()->get();
+        $barangHilangSelesai = BarangHilang::where('status', 'selesai')->with('user')->latest()->get();
+        $barangTemuanSelesai = BarangTemuan::where('status', 'selesai')->with('user')->latest()->get();
 
-        return view('admin.validasi.index', compact('barangHilangPending', 'barangTemuanPending'));
+        return view('admin.validasi.index', compact(
+            'barangHilangPending', 
+            'barangTemuanPending',
+            'barangHilangSelesai',
+            'barangTemuanSelesai'
+        ));
     }
 
     // --- Aksi untuk Barang Hilang ---
