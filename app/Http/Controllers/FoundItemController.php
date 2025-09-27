@@ -15,7 +15,7 @@ class FoundItemController extends Controller
     {
         $search = request('search');
 
-        $query = BarangTemuan::where('status', 'disetujui');
+        $query = BarangTemuan::where('status', 'diterima');
 
         // Tambahkan logika pencarian
         if ($search) {
