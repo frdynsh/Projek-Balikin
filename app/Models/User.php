@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -21,6 +21,12 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'nim',
+        'nip',
+        'jurusan',
+        'nomor_telepon',
+        'role',
+        'profile_photo_path',
     ];
 
     /**
@@ -44,5 +50,21 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Mendapatkan semua laporan barang hilang yang dimiliki oleh user ini.
+     */
+    public function barangHilang()
+    {
+        return $this->hasMany(BarangHilang::class);
+    }
+
+    /**
+     * Mendapatkan semua laporan barang temuan yang dibuat oleh user ini.
+     */
+    public function barangTemuan()
+    {
+        return $this->hasMany(BarangTemuan::class);
     }
 }
