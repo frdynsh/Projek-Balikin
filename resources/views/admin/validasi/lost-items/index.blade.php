@@ -33,7 +33,7 @@
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $barang->created_at->isoFormat('D MMM YYYY') }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap flex items-center space-x-3">
                                         <!-- Form Setujui -->
-                                        <form action="{{ route('admin.validasi.hilang.setujui', $barang->id) }}" method="POST">
+                                        <form action="{{ route('admin.validasi.lost-items.setujui', $barang->id) }}" method="POST">
                                             @csrf
                                             @method('PATCH')
                                             <button type="submit" class="inline-flex items-center px-3 py-1 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150">
@@ -42,7 +42,7 @@
                                         </form>
                                         
                                         <!-- Form Tolak -->
-                                        <form action="{{ route('admin.validasi.hilang.tolak', $barang->id) }}" method="POST">
+                                        <form action="{{ route('admin.validasi.lost-items.tolak', $barang->id) }}" method="POST">
                                             @csrf
                                             @method('PATCH')
                                             <button type="submit" class="inline-flex items-center px-3 py-1 bg-red-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150">

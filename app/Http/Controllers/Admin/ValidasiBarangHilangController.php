@@ -13,8 +13,15 @@ class ValidasiBarangHilangController extends Controller
      */
     public function index()
     {
-        $barangHilangPending = BarangHilang::where('status', 'menunggu')->with('user')->latest()->get();
-        $barangHilangSelesai = BarangHilang::where('status', 'selesai')->with('user')->latest()->get();
+        $barangHilangPending = BarangHilang::with('user')
+                                ->where('status', 'menunggu') 
+                                ->latest()
+                                ->get();
+
+        $barangHilangSelesai = BarangHilang::with('user')
+                                        ->whereIn('status', ['diterima', 'ditolak', 'selesai'])
+                                        ->latest()
+                                        ->get();
 
         return view('admin.validasi.lost-items.index', compact('barangHilangPending', 'barangHilangSelesai'));
     }
@@ -22,18 +29,18 @@ class ValidasiBarangHilangController extends Controller
     /**
      * Menyetujui sebuah laporan barang hilang.
      */
-    public function setujui(BarangHilang $barangHilang)
+    public function setujui(BarangHilang $lostItem)
     {
-        $barangHilang->update(['status' => 'diterima']);
+        $lostItem->update(['status' => 'diterima']);
         return back()->with('success', 'Laporan barang hilang telah disetujui.');
     }
 
     /**
      * Menolak sebuah laporan barang hilang.
      */
-    public function tolak(BarangHilang $barangHilang)
+    public function tolak(BarangHilang $lostItem)
     {
-        $barangHilang->update(['status' => 'ditolak']);
+        $lostItem->update(['status' => 'ditolak']);
         return back()->with('success', 'Laporan barang hilang telah ditolak.');
     }
 }
