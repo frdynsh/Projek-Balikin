@@ -38,7 +38,7 @@ class LostItemController extends Controller
             'deskripsi_barang'  => 'required|string',
             'tgl_kehilangan'    => 'required|date',
             'lokasi_kehilangan' => 'required|string|max:255',
-            'gambar'            => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'gambar'            => 'required|image|mimes:jpeg,png,jpg,gif|max:8192',
         ]);
 
         if ($request->hasFile('gambar')) {
@@ -81,7 +81,7 @@ class LostItemController extends Controller
             'deskripsi_barang'  => 'required|string',
             'tgl_kehilangan'    => 'required|date',
             'lokasi_kehilangan' => 'required|string|max:255',
-            'gambar'            => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'gambar'            => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:8192',
         ]);
 
         if ($request->hasFile('gambar')) {

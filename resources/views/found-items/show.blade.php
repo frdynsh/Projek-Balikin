@@ -16,7 +16,7 @@
                         
                         <div class="space-y-2 text-gray-700 dark:text-gray-300">
                             <p><strong>Dilaporkan oleh:</strong> {{ $barangTemuan->user->name }}</p>
-                            <p><strong>Tanggal Ditemukan:</strong> {{ \Carbon\Carbon::parse($barangTemuan->tgl_penemuan)->isoFormat('dddd, D MMMM YYYY') }}</p>
+                            <p><strong>Tanggal Ditemukan:</strong> {{ \Carbon\Carbon::parse($barangTemuan->tgl_penemuan)->locale('id')->isoFormat('dddd, D MMMM YYYY') }}</p>
                             <p><strong>Lokasi Penemuan:</strong> {{ $barangTemuan->lokasi_penemuan }}</p>
                         </div>
 

@@ -48,7 +48,7 @@ class FoundItemController extends Controller
             'deskripsi_barang'  => 'required|string',
             'tgl_penemuan'      => 'required|date',
             'lokasi_penemuan'   => 'required|string|max:255',
-            'gambar'            => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'gambar'            => 'required|image|mimes:jpeg,png,jpg,gif|max:8192',
         ]);
 
         if ($request->hasFile('gambar')) {
@@ -100,7 +100,7 @@ class FoundItemController extends Controller
             'deskripsi_barang'  => 'required|string',
             'tgl_penemuan'      => 'required|date',
             'lokasi_penemuan'   => 'required|string|max:255',
-            'gambar'            => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'gambar'            => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:8192',
         ]);
 
         if ($request->hasFile('gambar')) {
