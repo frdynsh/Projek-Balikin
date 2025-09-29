@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('profile_photo_path', 2048)->nullable()->after('password');
+            $table->string('profile_photo_path', 8192)->nullable()->after('password');
         });
     }
 

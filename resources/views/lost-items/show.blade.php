@@ -19,7 +19,7 @@
                         
                         <div class="space-y-2 text-gray-700 dark:text-gray-300">
                             <p><strong>Dilaporkan oleh:</strong> {{ $barangHilang->user->name }}</p>
-                            <p><strong>Tanggal Kehilangan:</strong> {{ \Carbon\Carbon::parse($barangHilang->tgl_kehilangan)->isoFormat('dddd, D MMMM YYYY') }}</p>
+                            <p><strong>Tanggal Kehilangan:</strong> {{ \Carbon\Carbon::parse($barangHilang->tgl_kehilangan)->locale('id')->isoFormat('dddd, D MMMM YYYY') }}</p>
                             <p><strong>Lokasi Terakhir Dilihat:</strong> {{ $barangHilang->lokasi_kehilangan }}</p>
                         </div>
 

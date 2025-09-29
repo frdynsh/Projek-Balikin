@@ -9,8 +9,20 @@ use Illuminate\Support\Facades\Storage;
 class LostItemController extends Controller
 {
     public function index()
-    {
-        $barangHilangs = BarangHilang::where('status', 'diterima')->with('user')->latest()->paginate(9);
+    {   
+        $search = request('search');
+
+        $query = BarangHilang::where('status', 'diterima');
+
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('nama_barang', 'like', '%' . $search . '%')
+                ->orWhere('deskripsi_barang', 'like', '%' . $search . '%');
+            });
+        }
+
+        $barangHilangs = $query->latest()->paginate(9);
+
         return view('lost-items.index', compact('barangHilangs'));
     }
 
@@ -26,7 +38,7 @@ class LostItemController extends Controller
             'deskripsi_barang'  => 'required|string',
             'tgl_kehilangan'    => 'required|date',
             'lokasi_kehilangan' => 'required|string|max:255',
-            'gambar'            => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'gambar'            => 'required|image|mimes:jpeg,png,jpg,gif|max:8192',
         ]);
 
         if ($request->hasFile('gambar')) {
@@ -69,7 +81,7 @@ class LostItemController extends Controller
             'deskripsi_barang'  => 'required|string',
             'tgl_kehilangan'    => 'required|date',
             'lokasi_kehilangan' => 'required|string|max:255',
-            'gambar'            => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'gambar'            => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:8192',
         ]);
 
         if ($request->hasFile('gambar')) {

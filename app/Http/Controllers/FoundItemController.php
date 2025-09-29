@@ -13,7 +13,20 @@ class FoundItemController extends Controller
      */
     public function index()
     {
-        $barangTemuans = BarangTemuan::where('status', 'diterima')->with('user')->latest()->paginate(9);
+        $search = request('search');
+
+        $query = BarangTemuan::where('status', 'diterima');
+
+        // Tambahkan logika pencarian
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('nama_barang', 'like', '%' . $search . '%')
+                ->orWhere('deskripsi_barang', 'like', '%' . $search . '%');
+            });
+        }
+
+        $barangTemuans = $query->latest()->paginate(9);
+
         return view('found-items.index', compact('barangTemuans'));
     }
 
@@ -35,7 +48,7 @@ class FoundItemController extends Controller
             'deskripsi_barang'  => 'required|string',
             'tgl_penemuan'      => 'required|date',
             'lokasi_penemuan'   => 'required|string|max:255',
-            'gambar'            => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'gambar'            => 'required|image|mimes:jpeg,png,jpg,gif|max:8192',
         ]);
 
         if ($request->hasFile('gambar')) {
@@ -87,7 +100,7 @@ class FoundItemController extends Controller
             'deskripsi_barang'  => 'required|string',
             'tgl_penemuan'      => 'required|date',
             'lokasi_penemuan'   => 'required|string|max:255',
-            'gambar'            => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'gambar'            => 'sometimes|image|mimes:jpeg,png,jpg,gif|max:8192',
         ]);
 
         if ($request->hasFile('gambar')) {

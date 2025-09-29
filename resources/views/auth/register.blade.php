@@ -68,7 +68,7 @@
                     <p class="text-sm text-gray-600 dark:text-gray-400">
                         Sudah punya Akun?
                         <a class="underline text-indigo-600 dark:text-indigo-400 hover:text-gray-900 dark:hover:text-gray-100" href="{{ route('login') }}">
-                            Login di sini
+                            Login
                         </a>
                     </p>
                 </div>
