@@ -20,23 +20,23 @@ Sistem ini memiliki dua peran utama: **User** (Mahasiswa, Dosen, Staf) dan **Adm
 #### Fitur untuk User:
 -   🔐 **Autentikasi**: Register, login, dan logout.
 -   👤 **Manajemen Profil**: Mengubah informasi profil pribadi.
--   [cite_start]📄 **Lapor Barang Hilang**: Membuat laporan kehilangan barang lengkap dengan nama barang, deskripsi, tanggal, lokasi, dan foto[cite: 318, 327].
--   [cite_start]🙋 **Lapor Barang Temuan**: Membuat laporan penemuan barang[cite: 55, 125].
--   [cite_start]🔍 **Lihat Daftar Barang**: Menelusuri daftar barang yang hilang dan ditemukan yang sudah divalidasi[cite: 61, 62, 349].
--   [cite_start]✏️ **Kelola Laporan**: Mengedit dan menghapus laporan milik sendiri[cite: 57, 58, 59, 60].
--   [cite_start]🔎 **Pencarian**: Mencari barang spesifik dari daftar yang ada[cite: 63].
+-   📄 **Lapor Barang Hilang**: Membuat laporan kehilangan barang lengkap dengan nama barang, deskripsi, tanggal, lokasi, dan foto.
+-   🙋 **Lapor Barang Temuan**: Membuat laporan penemuan barang.
+-   🔍 **Lihat Daftar Barang**: Menelusuri daftar barang yang hilang dan ditemukan yang sudah divalidasi.
+-   ✏️ **Kelola Laporan**: Mengedit dan menghapus laporan milik sendiri.
+-   🔎 **Pencarian**: Mencari barang spesifik dari daftar yang ada.
 
 #### Fitur untuk Admin:
 -   🔒 **Akses Terbatas**: Login khusus untuk admin.
--   [cite_start]✅ **Validasi Laporan**: Menyetujui atau menolak laporan barang hilang/temuan yang dikirim oleh user[cite: 56, 104, 381].
--   [cite_start]👥 **Manajemen User**: Menambah atau menghapus akun user yang terdaftar di sistem[cite: 64, 153, 425, 426].
+-   ✅ **Validasi Laporan**: Menyetujui atau menolak laporan barang hilang/temuan yang dikirim oleh user.
+-   👥 **Manajemen User**: Menambah atau menghapus akun user yang terdaftar di sistem.
 -   📊 **Dashboard**: Melihat semua daftar barang yang dilaporkan, baik yang sudah divalidasi maupun yang belum.
 
 ---
 
 ## 🚀 Teknologi yang Digunakan
 
-* **Backend**: PHP 8.x, Laravel 12
+* **Backend**: PHP 8.3, Laravel 12
 * **Frontend**: HTML, CSS, JavaScript, Blade Template Engine
 * **Database**: MySQL
 * **Development Tools**: Composer, Git, GitHub
