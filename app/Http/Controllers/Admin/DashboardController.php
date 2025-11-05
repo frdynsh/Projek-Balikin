@@ -19,8 +19,8 @@ class DashboardController extends Controller
         // 1. Statistik untuk Kartu
         $totalLaporanHilang = BarangHilang::count();
         $totalLaporanTemuan = BarangTemuan::count();
-        $laporanPerluValidasi = BarangHilang::where('status', 'Pending')->count()
-                              + BarangTemuan::where('status', 'Pending')->count();
+        $laporanPerluValidasi = BarangHilang::where('status', 'menunggu')->count()
+                              + BarangTemuan::where('status', 'menunggu')->count();
         $totalPengguna = User::count();
 
         // 2. Data untuk Aktivitas Terbaru

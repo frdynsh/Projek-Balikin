@@ -28,9 +28,9 @@ class ValidasiBarangHilangController extends Controller
      */
     public function pending()
     {
-        // Ambil hanya barang yang statusnya 'pending'
+        // Ambil hanya barang yang statusnya 'menunggu'
         $barangHilangPending = BarangHilang::with('user')
-            ->where('status', 'pending')
+            ->where('status', 'menunggu')
             ->latest()
             ->get();
 
@@ -56,6 +56,7 @@ class ValidasiBarangHilangController extends Controller
         // Redirect kembali ke halaman pending
         return redirect()->route('admin.validasi.lost-items.pending')->with('success', 'Laporan barang hilang telah ditolak.');
     }
+    
     /**
      * Hapus permanen laporan barang hilang dari arsip admin.
      */

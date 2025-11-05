@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\BarangTemuan;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ValidasiBarangTemuanController extends Controller
 {
@@ -27,9 +28,9 @@ class ValidasiBarangTemuanController extends Controller
      */
     public function pending()
     {
-        // Ambil hanya barang yang statusnya 'pending'
+        // Ambil hanya barang yang statusnya 'menunggu'
         $barangTemuanPending = BarangTemuan::with('user')
-            ->where('status', 'pending')
+            ->where('status', 'menunggu')
             ->latest()
             ->get();
 
