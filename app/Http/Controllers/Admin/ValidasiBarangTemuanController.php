@@ -2,45 +2,55 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\BarangTemuan;
 use App\Http\Controllers\Controller;
+use App\Models\BarangTemuan;
 use Illuminate\Http\Request;
 
 class ValidasiBarangTemuanController extends Controller
 {
-     /**
-     * Menampilkan halaman validasi dan arsip untuk barang temuan.
+    /**
+     * Menampilkan halaman ARSIP (laporan yang sudah ditangani).
      */
     public function index()
     {
-        $barangTemuanPending = BarangTemuan::with('user')
-                                       ->where('status', 'menunggu') 
-                                       ->latest()
-                                       ->get();
-
+        // Ambil hanya barang yang statusnya BUKAN 'pending'
         $barangTemuanSelesai = BarangTemuan::with('user')
-                                        ->whereIn('status', ['diterima', 'ditolak', 'selesai'])
-                                        ->latest()
-                                        ->get();
+            ->where('status', '!=', 'pending')
+            ->latest()
+            ->get();
 
-        return view('admin.validasi.found-items.index', compact('barangTemuanPending', 'barangTemuanSelesai'));
+        return view('admin.validasi.found-items.index', compact('barangTemuanSelesai'));
     }
 
     /**
-     * Menyetujui sebuah laporan barang temuan.
+     * Menampilkan halaman VALIDASI (laporan yang masih 'pending').
      */
-    public function setujui(BarangTemuan $foundItem)
+    public function pending()
     {
-        $foundItem->update(['status' => 'diterima']);
-        return back()->with('success', 'Laporan barang temuan telah disetujui.');
+        // Ambil hanya barang yang statusnya 'pending'
+        $barangTemuanPending = BarangTemuan::with('user')
+            ->where('status', 'pending')
+            ->latest()
+            ->get();
+
+        return view('admin.validasi.found-items.pending', compact('barangTemuanPending'));
     }
 
     /**
-     * Menolak sebuah laporan barang temuan.
+     * Setujui laporan barang temuan.
      */
-    public function tolak(BarangTemuan $foundItem)
+    public function setujui(BarangTemuan $found_item)
     {
-        $foundItem->update(['status' => 'ditolak']);
-        return back()->with('success', 'Laporan barang temuan telah ditolak.');
+        $found_item->update(['status' => 'diterima']);
+        return redirect()->route('admin.validasi.found-items.pending')->with('success', 'Laporan barang temuan telah disetujui.');
+    }
+
+    /**
+     * Tolak laporan barang temuan.
+     */
+    public function tolak(BarangTemuan $found_item)
+    {
+        $found_item->update(['status' => 'ditolak']);
+        return redirect()->route('admin.validasi.found-items.pending')->with('success', 'Laporan barang temuan telah ditolak.');
     }
 }

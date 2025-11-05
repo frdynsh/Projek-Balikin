@@ -103,19 +103,5 @@ class LostItemController extends Controller
         $lost_item->update(['status' => 'selesai']);
         return redirect()->route('lost-items.index')->with('success', 'Laporan telah ditandai sebagai selesai dan diarsipkan.');
     }
-    /**
-     * Hanya admin yang bisa menghapus.
-     */
-    public function destroy(BarangHilang $lost_item)
-    {
-        if (auth()->user()->role !== 'admin') {
-            abort(403, 'HANYA ADMIN YANG DAPAT MENGHAPUS LAPORAN INI.');
-        }
-
-        if ($lost_item->gambar) { Storage::delete($lost_item->gambar); }
-        $lost_item->delete();
-
-        return redirect()->route('lost-items.index')->with('success', 'Laporan berhasil dihapus oleh Admin.');
-    }
 }
 
