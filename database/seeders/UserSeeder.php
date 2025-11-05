@@ -22,42 +22,40 @@ class UserSeeder extends Seeder
         User::truncate();
         Schema::enableForeignKeyConstraints();
 
-        // 1. Membuat Akun ADMIN
         User::create([
             'name' => 'Admin Balikin',
             'email' => 'admin@balikin.test',
-            'password' => Hash::make('admin123'), // password: admin123
+            'password' => Hash::make('admin123'), 
             'jurusan' => 'Administrasi',
             'nomor_telepon' => '081200000001',
             'role' => 'admin',
         ]);
 
-        // 2. Membuat Akun untuk TIM PENGEMBANG
         User::create([
-            'name' => 'Ferdi', // Ganti dengan nama Anda
+            'name' => 'Ferdi', 
             'email' => 'ferdi@balikin.test',
-            'password' => Hash::make('password'), // password: password
-            'nim' => 'D1234567890', // Ganti dengan NIM Anda
+            'password' => Hash::make('password'), 
+            'nim' => 'D1234567890', 
             'jurusan' => 'Teknik Informatika',
             'nomor_telepon' => '081200000002',
             'role' => 'user',
         ]);
 
         User::create([
-            'name' => 'Ariella', // Ganti dengan nama teman Anda
+            'name' => 'Ariella',
             'email' => 'ariella@balikin.test',
-            'password' => Hash::make('password'), // password: password
-            'nim' => 'D0987654321', // Ganti dengan NIM teman Anda
+            'password' => Hash::make('password'),
+            'nim' => 'D0987654321',
             'jurusan' => 'Sistem Informasi',
             'nomor_telepon' => '081200000003',
             'role' => 'user',
         ]);
 
         User::create([
-            'name' => 'Erika', // Ganti dengan nama teman Anda
+            'name' => 'Erika',
             'email' => 'erika@balikin.test',
-            'password' => Hash::make('password'), // password: password
-            'nim' => 'D5432109876', // Ganti dengan NIM teman Anda
+            'password' => Hash::make('password'),
+            'nim' => 'D5432109876',
             'jurusan' => 'Desain Komunikasi Visual',
             'nomor_telepon' => '081200000004',
             'role' => 'user',
