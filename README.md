@@ -23,7 +23,7 @@ Sistem ini memiliki dua peran utama: **User** (Mahasiswa, Dosen, Staf) dan **Adm
 -   📄 **Lapor Barang Hilang**: Membuat laporan kehilangan barang lengkap dengan nama barang, deskripsi, tanggal, lokasi, dan foto.
 -   🙋 **Lapor Barang Temuan**: Membuat laporan penemuan barang.
 -   🔍 **Lihat Daftar Barang**: Menelusuri daftar barang yang hilang dan ditemukan yang sudah divalidasi.
--   ✏️ **Kelola Laporan**: Mengedit dan menghapus laporan milik sendiri.
+-   ✏️ **Kelola Laporan**: Mengedit dan menandai status laporan milik sendiri.
 -   🔎 **Pencarian**: Mencari barang spesifik dari daftar yang ada.
 
 #### Fitur untuk Admin:
@@ -36,7 +36,7 @@ Sistem ini memiliki dua peran utama: **User** (Mahasiswa, Dosen, Staf) dan **Adm
 
 ## 🚀 Teknologi yang Digunakan
 
-* **Backend**: PHP 8.3, Laravel 12
+* **Backend**: PHP 8.4, Laravel 12
 * **Frontend**: HTML, CSS, JavaScript, Blade Template Engine
 * **Database**: MySQL
 * **Development Tools**: Composer, Git, GitHub
