@@ -1,9 +1,9 @@
-<x-guest-layout>
+<x-auth-layout>
     <div class="w-full sm:max-w-md">
         <!-- Logo, Judul, dan Subjudul -->
         <div class="text-center">
             <a href="/" class="inline-block">
-                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-20 h-20 rounded-full fill-current text-gray-500" />
+                <img src="{{ asset('images/icon/logo.png') }}" alt="Logo" class="w-20 h-20 rounded-full fill-current text-gray-500" />
             </a>
             <h2 class="mt-6 text-2xl font-bold text-gray-800 dark:text-gray-200">
                 Atur Ulang Password Anda
@@ -59,5 +59,5 @@
             </form>
         </div>
     </div>
-</x-guest-layout>
+</x-auth-layout>
 
