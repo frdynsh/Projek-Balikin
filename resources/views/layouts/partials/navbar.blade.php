@@ -1,6 +1,6 @@
 <nav x-data="{ open: false, dropdown: false }" 
      class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-transparent text-white transition duration-300">
-    <div class="mx-auto px-6 lg:px-8">
+    <div class="mx-auto px-10 py-4 lg:px-8">
         <div class="flex justify-between h-16 items-center">
             
             <!-- Logo + Brand -->

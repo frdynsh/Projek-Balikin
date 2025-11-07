@@ -57,7 +57,7 @@
                     
                     @if (Route::has('password.request'))
                         <div class="text-right mt-2">
-                            <a class="underline text-sm text-indigo-600 dark:text-indigo-400 hover:text-gray-900 dark:hover:text-gray-100" href="{{ route('password.request') }}">
+                            <a class="underline text-sm text-purple-600 dark:text-purple-400 hover:text-gray-900 dark:hover:text-gray-100" href="{{ route('password.request') }}">
                                 Lupa Password?
                             </a>
                         </div>
@@ -74,7 +74,7 @@
                 <div class="text-center mt-6">
                     <p class="text-sm text-gray-600 dark:text-gray-400">
                         Belum punya Akun?
-                        <a class="underline text-indigo-600 dark:text-indigo-400 hover:text-gray-900 dark:hover:text-gray-100" href="{{ route('register') }}">
+                        <a class="underline text-purple-600 dark:text-purple-400 hover:text-gray-900 dark:hover:text-gray-100" href="{{ route('register') }}">
                             Daftar
                         </a>
                     </p>

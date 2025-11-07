@@ -50,7 +50,7 @@
                 <a href="{{ route('login') }}" class="hover:text-purple-400">Barang Temuan</a>
             </div>
 
-            <a href="{{ route('login') }}" class="text-sm font-medium hover:text-purple-400">Log in →</a>
+            <a href="{{ route('login') }}" class="text-sm font-medium hover:text-purple-400">Login</a>
         </nav>
     </header>
 

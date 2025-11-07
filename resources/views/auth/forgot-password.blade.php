@@ -35,7 +35,7 @@
                 </div>
 
                 <div class="text-center mt-6">
-                    <a class="underline text-sm text-indigo-600 dark:text-indigo-400 hover:text-gray-900 dark:hover:text-gray-100" href="{{ route('login') }}">
+                    <a class="underline text-sm text-purple-600 dark:text-purple-400 hover:text-gray-900 dark:hover:text-gray-100" href="{{ route('login') }}">
                         Kembali
                     </a>
                 </div>

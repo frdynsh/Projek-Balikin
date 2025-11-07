@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="py-24">
+    <div class="py-32">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-between items-center mb-8">
                 <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -12,7 +12,7 @@
                             name="search" 
                             placeholder="Cari nama barang..." 
                             value="{{ request('search') }}"
-                            class="block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
+                            class="block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-purple-500 dark:focus:border-purple-600 focus:ring-purple-500 dark:focus:ring-purple-600 rounded-md shadow-sm"
                         >
                         @if (request('search'))
                             <a href="{{ route('lost-items.index') }}" class="absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400 hover:text-gray-600 dark:hover:text-gray-200" title="Hapus Pencarian">
@@ -44,7 +44,7 @@
                             <h3 class="font-semibold text-lg text-gray-900 dark:text-gray-100">{{ $barang->nama_barang }}</h3>
                             <p class="mt-2 text-gray-800 dark:text-gray-200 flex-grow">{{ Str::limit($barang->deskripsi_barang, 100) }}</p>
                             <div class="mt-4 pt-4 border-t dark:border-gray-600 flex justify-between items-center">
-                                <a href="{{ route('lost-items.show', $barang) }}" class="text-indigo-600 dark:text-indigo-400 hover:underline">Lihat Detail</a>
+                                <a href="{{ route('lost-items.show', $barang) }}" class="text-purple-600 dark:text-purple-400 hover:underline">Lihat Detail</a>
                                 
                                 <div class="flex space-x-2">
                                     {{-- Tombol Edit: HANYA untuk pemilik laporan --}}

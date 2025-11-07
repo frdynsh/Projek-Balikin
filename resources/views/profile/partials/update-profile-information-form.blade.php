@@ -27,7 +27,7 @@
                         @if (Auth::user()->profile_photo_path)
                             <img class="h-32 w-32 rounded-full object-cover" src="{{ Storage::url(Auth::user()->profile_photo_path) }}" alt="Current profile photo">
                         @else
-                            <div class="h-32 w-32 rounded-full bg-indigo-500 flex items-center justify-center text-white font-bold text-4xl">
+                            <div class="h-32 w-32 rounded-full bg-purple-500 flex items-center justify-center text-white font-bold text-4xl">
                                 {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
                             </div>
                         @endif
@@ -50,7 +50,6 @@
                         <x-input-error class="mt-2" :messages="$errors->get('email')" />
                     </div>
 
-                    {{-- KOLOM-KOLOM BARU DIPINDAHKAN KE SINI --}}
                     <div>
                         <x-input-label for="nim" :value="__('NIM (Nomor Induk Mahasiswa)')" />
                         <x-text-input id="nim" name="nim" type="text" class="mt-1 block w-full" :value="old('nim', $user->nim)" />

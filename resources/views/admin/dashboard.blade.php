@@ -1,5 +1,5 @@
 <x-admin-layout>
-    <div class="py-12">
+    <div class="py-2">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             
             <div class="text-center grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
@@ -71,7 +71,6 @@
                     @forelse ($aktivitasTerbaru as $item)
                         <li class="py-4 flex justify-between items-center">
                             <div class="flex items-center gap-3">
-                                {{-- Cek tipe model untuk menentukan badge --}}
                                 @if($item instanceof \App\Models\BarangHilang)
                                     <span class="px-2 py-0.5 text-xs font-semibold rounded-full bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">Laporan Hilang</span>
                                     <span class="font-medium text-gray-800 dark:text-gray-100">{{ $item->nama_barang }}</span>
