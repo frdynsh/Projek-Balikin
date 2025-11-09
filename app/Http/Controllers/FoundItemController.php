@@ -11,23 +11,23 @@ class FoundItemController extends Controller
     /**
      * Menampilkan daftar semua barang temuan yang sudah disetujui.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $search = request('search');
+        $search = $request->input('search');
 
-        $query = BarangTemuan::where('status', 'diterima');
+        $query = Barangtemuan::where('status', 'diterima');
 
-        // Tambahkan logika pencarian
-        if ($search) {
+        if (!empty($search)) {
             $query->where(function ($q) use ($search) {
                 $q->where('nama_barang', 'like', '%' . $search . '%')
-                ->orWhere('deskripsi_barang', 'like', '%' . $search . '%');
+                  ->orWhere('deskripsi_barang', 'like', '%' . $search . '%');
             });
         }
 
         $barangTemuans = $query->latest()->paginate(9);
+        $barangTemuans->appends(['search' => $search]);
 
-        return view('found-items.index', compact('barangTemuans'));
+        return view('found-items.index', compact('barangTemuans', 'search'));
     }
 
     /**

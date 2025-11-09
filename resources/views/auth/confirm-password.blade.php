@@ -1,36 +1,53 @@
-<x-auth-layout>
-    <div class="w-full sm:max-w-md">
-        <!-- Logo, Judul, dan Subjudul -->
-        <div class="text-center">
-            <a href="/" class="inline-block">
-               <img src="{{ asset('images/icon/logo.png') }}" alt="Logo" class="w-20 h-20 rounded-full fill-current text-gray-500" />
-            </a>
-            <h2 class="mt-6 text-2xl font-bold text-gray-800 dark:text-gray-200">
-                Konfirmasi Akses
-            </h2>
-            <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                Ini adalah area aman. Mohon konfirmasi password Anda sebelum melanjutkan.
-            </p>
-        </div>
+@extends('layouts.guest')
 
-        <div class="mt-8">
-            <form method="POST" action="{{ route('password.confirm') }}">
-                @csrf
+@section('title', 'Konfirmasi Password')
 
-                <!-- Password -->
-                <div>
-                    <x-input-label for="password" value="Password" />
-                    <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autocomplete="current-password" />
-                    <x-input-error :messages="$errors->get('password')" class="mt-2" />
-                </div>
+@section('content')
+<div class="glass-card w-full max-w-md p-8 rounded-3xl shadow-2xl text-white backdrop-blur-xl">
 
-                <!-- Tombol Konfirmasi -->
-                <div class="mt-6">
-                    <x-primary-button class="w-full justify-center bg-purple-500 hover:bg-purple-800 focus:bg-purple-800 active:bg-purple-900 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:bg-purple-700 dark:active:bg-purple-800">
-                        Konfirmasi
-                    </x-primary-button>
-                </div>
-            </form>
-        </div>
+    <!-- Logo -->
+    <div class="text-center">
+        <a href="/" class="inline-block">
+            <img src="{{ asset('images/icon/logo.png') }}" alt="Logo" class="w-20 h-20 mx-auto rounded-full" />
+        </a>
+        <h2 class="mt-6 text-2xl font-bold text-white">
+            Konfirmasi Akses
+        </h2>
+        <p class="mt-2 text-sm text-gray-300">
+            Ini adalah area aman. Mohon konfirmasi password Anda sebelum melanjutkan.
+        </p>
     </div>
-</x-auth-layout>
+
+    <!-- Form -->
+    <form method="POST" action="{{ route('password.confirm') }}" class="mt-6 space-y-6">
+        @csrf
+
+        <!-- Password -->
+        <div>
+            <label for="password" class="block text-sm mb-2 text-gray-200">Password</label>
+            <input id="password" type="password" name="password" required
+                autocomplete="current-password"
+                class="w-full p-3 rounded-lg bg-[#1E1E3F] border border-gray-600 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500"
+                placeholder="Masukkan password Anda">
+            @error('password')
+                <p class="text-sm text-red-400 mt-2 bg-red-400/10 px-3 py-1 rounded-md border border-red-400/30 transition-all duration-300">
+                    {{ $message }}
+                </p>
+            @enderror
+        </div>
+
+        <!-- Tombol -->
+        <button type="submit"
+            class="w-full bg-purple-600 hover:bg-purple-700 transition rounded-lg py-3 font-semibold text-white">
+            Konfirmasi Password
+        </button>
+    </form>
+
+    <!-- Link kembali -->
+    <div class="text-center mt-4">
+        <a href="{{ route('login') }}" class="text-sm text-purple-400 hover:text-purple-300">
+            Kembali ke halaman login
+        </a>
+    </div>
+</div>
+@endsection

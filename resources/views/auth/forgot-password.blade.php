@@ -1,45 +1,36 @@
-<x-auth-layout>
-    <div class="w-full sm:max-w-md">
-        <!-- Logo, Judul, dan Subjudul -->
-        <div class="text-center">
-            <a href="/" class="inline-block">
-                <img src="{{ asset('images/icon/logo.png') }}" alt="Logo" class="w-20 h-20 rounded-full fill-current text-gray-500" />
-            </a>
-            <h2 class="mt-6 text-2xl font-bold text-gray-800 dark:text-gray-200">
-                Lupa Password?
-            </h2>
-            <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                Tidak masalah. Cukup beritahu kami alamat email Anda dan kami akan mengirimkan link untuk mengatur ulang password Anda.
-            </p>
-        </div>
+@extends('layouts.guest')
 
-        <div class="mt-8">
-            <!-- Session Status -->
-            <x-auth-session-status class="mb-4" :status="session('status')" />
+@section('title', 'Forgot Password')
 
-            <form method="POST" action="{{ route('password.email') }}">
-                @csrf
+@section('content')
+<div class="glass-card w-full max-w-md p-8 rounded-3xl shadow-2xl text-white backdrop-blur-xl">
 
-                <!-- Alamat Email -->
-                <div>
-                    <x-input-label for="email" value="Email" />
-                    <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
-                </div>
+    <h2 class="text-3xl font-bold text-center mb-6">Forgot Password</h2>
 
-                <!-- Tombol Kirim Link -->
-                <div class="mt-6">
-                    <x-primary-button class="w-full justify-center bg-purple-500 hover:bg-purple-800 focus:bg-purple-800 active:bg-purple-900 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:bg-purple-700 dark:active:bg-purple-800">
-                        Kirim Link Reset Password
-                    </x-primary-button>
-                </div>
-
-                <div class="text-center mt-6">
-                    <a class="underline text-sm text-purple-600 dark:text-purple-400 hover:text-gray-900 dark:hover:text-gray-100" href="{{ route('login') }}">
-                        Kembali
-                    </a>
-                </div>
-            </form>
-        </div>
+    <div class="mb-4 text-sm text-gray-300">
+        Forgot your password? No problem. Just let us know your email address and we’ll email you a password reset link.
     </div>
-</x-auth-layout>
+
+    @if (session('status'))
+        <div class="mb-4 font-medium text-sm text-green-400">
+            {{ session('status') }}
+        </div>
+    @endif
+
+    <form method="POST" action="{{ route('password.email') }}">
+        @csrf
+        <div class="mb-5 relative">
+            <input id="email" type="email" name="email" placeholder="Email" required autofocus
+                class="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-400">
+                @error('email')
+                    <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
+                @enderror
+        </div>
+
+        <button type="submit"
+            class="w-full py-3 rounded-full bg-purple-600 hover:bg-purple-700 font-semibold transition">
+            Send Password Reset Link
+        </button>
+    </form>
+</div>
+@endsection

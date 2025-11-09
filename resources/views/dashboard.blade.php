@@ -2,7 +2,7 @@
     {{-- ====== HERO SECTION ====== --}}
     <div class="relative min-h-screen overflow-hidden bg-white dark:bg-[#111828] text-gray-900 dark:text-white transition-colors duration-500 isolate px-6 lg:px-8">
 
-        {{-- === GRADIENT BACKGROUND (tidak full layar) === --}}
+        {{-- === GRADIENT BACKGROUND === --}}
         <div 
             class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" 
             aria-hidden="true">
@@ -72,7 +72,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
                 {{-- Anggota 1 --}}
                 <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg">
-                    <img src="{{ asset('images/hero-section/1.jpg') }}" alt="Tim 1" class="w-32 h-32 mx-auto rounded-full object-cover mb-6">
+                    <img src="{{ asset('images/hero-section/person1.jpeg') }}" alt="Tim 1" class="w-32 h-32 mx-auto rounded-full object-cover mb-6">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Ariella Chandra Naya</h3>
                     <div class="flex justify-center gap-4 mt-4">
                         {{-- GitHub --}}
@@ -94,7 +94,7 @@
 
                 {{-- Anggota 2 --}}
                 <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg">
-                    <img src="{{ asset('images/hero-section/1.jpg') }}" alt="Tim 2" class="w-32 h-32 mx-auto rounded-full object-cover mb-6">
+                    <img src="{{ asset('images/hero-section/person2.jpeg') }}" alt="Tim 2" class="w-32 h-32 mx-auto rounded-full object-cover mb-6">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Ferdi Yansah</h3>
                     <div class="flex justify-center gap-4 mt-4">
                         {{-- GitHub --}}
@@ -116,7 +116,7 @@
 
                 {{-- Anggota 3 --}}
                 <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-lg">
-                    <img src="{{ asset('images/hero-section/1.jpg') }}" alt="Tim 3" class="w-32 h-32 mx-auto rounded-full object-cover mb-6">
+                    <img src="{{ asset('images/hero-section/person3.jpeg') }}" alt="Tim 3" class="w-32 h-32 mx-auto rounded-full object-cover mb-6">
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Erika Sita Dewi</h3>
                     <div class="flex justify-center gap-4 mt-4">
                         {{-- GitHub --}}

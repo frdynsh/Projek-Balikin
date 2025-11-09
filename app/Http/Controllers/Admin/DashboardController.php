@@ -21,7 +21,7 @@ class DashboardController extends Controller
         $totalLaporanTemuan = BarangTemuan::count();
         $laporanPerluValidasi = BarangHilang::where('status', 'menunggu')->count()
                               + BarangTemuan::where('status', 'menunggu')->count();
-        $totalPengguna = User::count();
+        $totalPengguna = User::where('role', '!=', 'admin')->count();
 
         // 2. Data untuk Aktivitas Terbaru
         $aktivitasHilang = BarangHilang::latest()->get();

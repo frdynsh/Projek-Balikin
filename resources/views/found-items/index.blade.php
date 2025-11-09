@@ -1,5 +1,24 @@
 <x-app-layout>
-    <div class="py-32">
+    <div class="py-32 relative min-h-screen overflow-hidden bg-white dark:bg-[#111828] text-gray-900 dark:text-white transition-colors duration-500 isolate px-6 lg:px-8">
+        {{-- === GRADIENT BACKGROUND === --}}
+        <div 
+            class="absolute inset-x-0 -top-40 -z-10 transform-gpu overflow-hidden blur-3xl sm:-top-80" 
+            aria-hidden="true">
+            <div 
+                class="relative left-[calc(50%-11rem)] aspect-[1155/678] w-[36.125rem] 
+                       -translate-x-1/6 rotate-[30deg] 
+                       bg-gradient-to-tr from-[#ff80b5] to-[#9089fc] dark:from-[#4f46e5] dark:to-[#9333ea] opacity-30 
+                       sm:left-[calc(50%-30rem)] sm:w-[72.1875rem]" 
+                style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 
+                       85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 
+                       60.2% 62.4%, 52.4% 68.1%, 
+                       47.5% 58.3%, 45.2% 34.5%, 
+                       27.5% 76.7%, 0.1% 64.9%, 
+                       17.9% 100%, 27.6% 76.8%, 
+                       76.1% 97.7%, 74.1% 44.1%)">
+            </div>
+        </div>
+
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-between items-center mb-8">
                 <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -16,13 +35,11 @@
                             value="{{ request('search') }}"
                             class="block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-purple-500 dark:focus:border-purple-600 focus:ring-purple-500 dark:focus:ring-purple-600 rounded-md shadow-sm"
                         >
-                        {{-- Tombol untuk Reset/Hapus Pencarian (Opsional) --}}
                         @if (request('search'))
                             <a href="{{ route('found-items.index') }}" class="absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400 hover:text-gray-600 dark:hover:text-gray-200" title="Hapus Pencarian">
                                 ✕
                             </a>
                         @else
-                             {{-- Tombol Submit Kecil (ikon kaca pembesar) --}}
                             <button type="submit" class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
                             </button>
@@ -68,7 +85,11 @@
                     </div>
                 @empty
                     <div class="col-span-full text-center py-16 text-gray-500 dark:text-gray-400">
-                        <p>Belum ada laporan barang temuan yang disetujui oleh Admin.</p>
+                        @if (!empty($search))
+                            <p>Tidak ditemukan barang dengan kata "<strong>{{ $search }}</strong>".</p>
+                        @else
+                            <p>Belum ada laporan barang temuan yang diterima oleh Admin.</p>
+                        @endif
                     </div>
                 @endforelse
             </div>
