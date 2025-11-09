@@ -19,9 +19,18 @@
             </div>
         </div>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <h2 class="mb-8 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ __('Edit Laporan Barang Temuan') }}
-            </h2>
+             <div class="flex items-center justify-between mb-8">
+                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                    {{ __('Edit Barang Temuan') }}
+                </h2>
+
+                <a href="{{ route('found-items.index') }}" 
+                   class="inline-flex items-center px-4 py-2 text-sm font-semibold text-purple-600 dark:text-purple-400 
+                          border border-purple-600 dark:border-purple-400 rounded-md hover:bg-purple-600 hover:text-white 
+                          transition duration-150 ease-in-out">
+                    Kembali ke Daftar
+                </a>
+            </div>
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <form method="POST" action="{{ route('found-items.update', $barangTemuan) }}" enctype="multipart/form-data">

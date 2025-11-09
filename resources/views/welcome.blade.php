@@ -1,7 +1,5 @@
 @extends('layouts.guest')
 
-@section('title', 'Selamat Datang di Balikin')
-
 @section('content')
     <div class="text-center max-w-3xl">
         <h1 class="text-4xl md:text-6xl font-bold mb-6 leading-tight">

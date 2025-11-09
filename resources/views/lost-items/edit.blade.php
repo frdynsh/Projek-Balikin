@@ -21,7 +21,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex items-center justify-between mb-8">
                 <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                    {{ __('Edit Laporan Barang Hilang') }}
+                    {{ __('Edit Barang Hilang') }}
                 </h2>
 
                 <a href="{{ route('lost-items.index') }}" 
