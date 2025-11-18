@@ -49,11 +49,6 @@
                     </div>
                 </form>
             </div>
-            @if (session('success'))
-                <div class="mb-6 p-4 bg-green-200 text-green-800 rounded-lg dark:bg-green-800 dark:text-green-200">
-                    {{ session('success') }}
-                </div>
-            @endif
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @forelse ($barangHilangs as $barang)

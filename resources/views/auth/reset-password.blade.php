@@ -29,9 +29,6 @@
             <span class="absolute right-4 top-4 text-gray-300">
                 <i class="fas fa-envelope"></i>
             </span>
-            @error('email')
-                <p class="text-red-400 text-sm mt-2">{{ $message }}</p>
-            @enderror
         </div>
 
         <!-- Password -->
@@ -41,9 +38,6 @@
             <span class="absolute right-4 top-4 text-gray-300">
                 <i class="fas fa-lock"></i>
             </span>
-            @error('password')
-                <p class="text-red-400 text-sm mt-2">{{ $message }}</p>
-            @enderror
         </div>
 
         <!-- Confirm Password -->
@@ -53,9 +47,6 @@
             <span class="absolute right-4 top-4 text-gray-300">
                 <i class="fas fa-lock"></i>
             </span>
-            @error('password_confirmation')
-                <p class="text-red-400 text-sm mt-2">{{ $message }}</p>
-            @enderror
         </div>
 
         <!-- Tombol Submit -->

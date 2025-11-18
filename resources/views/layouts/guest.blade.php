@@ -71,6 +71,38 @@
         </nav>
     </header>
 
+     <!-- Session Alert -->
+    <div class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-lg px-4">
+        {{-- Success --}}
+        @if(session('success'))
+            <div class="bg-green-500 text-white p-4 rounded shadow-md flex justify-between items-center mb-2" x-data="{ open: true }" x-show="open">
+                <span>{{ session('success') }}</span>
+                <button @click="open = false" class="ml-4 font-bold">&times;</button>
+            </div>
+        @endif
+
+        {{-- Error dari session --}}
+        @if(session('error'))
+            <div class="bg-red-500 text-white p-4 rounded shadow-md flex justify-between items-center mb-2" x-data="{ open: true }" x-show="open">
+                <span>{{ session('error') }}</span>
+                <button @click="open = false" class="ml-4 font-bold">&times;</button>
+            </div>
+        @endif
+
+        {{-- Error dari validasi Laravel --}}
+        @if($errors->any())
+            <div class="bg-red-500 text-white p-4 rounded shadow-md flex justify-between items-center mb-2" x-data="{ open: true }" x-show="open">
+                <ul class="list-disc ml-4">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+                <button @click="open = false" class="ml-4 font-bold">&times;</button>
+            </div>
+        @endif
+    </div>
+
+
     <!-- Konten Utama -->
     <main class="relative flex flex-col items-center justify-center min-h-screen px-6 md:px-20 z-10">
         @yield('content')

@@ -22,6 +22,22 @@
 
         <!-- Page Content -->
         <main class="pt-12 md:pt-0">
+            {{-- Session Alert --}}
+            @if(session('success') || session('error'))
+                <div 
+                    x-data="{ show: true }" 
+                    x-show="show" 
+                    x-init="setTimeout(() => show = false, 5000)"
+                    class="fixed top-4 left-1/2 transform -translate-x-1/2 z-50"
+                >
+                    <div class="flex items-center justify-between px-6 py-4 rounded shadow-lg
+                                {{ session('success') ? 'bg-green-700 text-white' : 'bg-red-700 text-white' }}">
+                        <span>{{ session('success') ?? session('error') }}</span>
+                        <button @click="show = false" class="ml-4 text-xl font-bold focus:outline-none">&times;</button>
+                    </div>
+                </div>
+            @endif
+
             {{ $slot }}
         </main>
 

@@ -11,12 +11,6 @@
                 </a>
             </div>
 
-            @if (session('success'))
-                <div class="p-4 mb-4 bg-green-100 text-green-700 rounded-lg dark:bg-green-900 dark:text-green-200 border border-green-300 dark:border-green-700">
-                    {{ session('success') }}
-                </div>
-            @endif
-
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-lg rounded-lg border border-gray-200 dark:border-gray-700">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <h3 class="text-xl font-bold mb-4 border-b pb-2 border-gray-200 dark:border-gray-700">Menunggu Persetujuan</h3>

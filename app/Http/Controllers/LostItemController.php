@@ -34,6 +34,13 @@ class LostItemController extends Controller
      */
     public function create()
     {
+        $user = auth()->user();
+
+        if (!$user->nomor_telepon) {
+            return redirect()->route('profile.edit')
+                ->with('error', 'Harap lengkapi nomor telepon Anda sebelum membuat laporan barang temuan.');
+        }
+        
         return view('lost-items.create');
     }
 
@@ -42,6 +49,7 @@ class LostItemController extends Controller
      */
     public function store(Request $request)
     {
+         // Validasi input
         $validatedData = $request->validate([
             'nama_barang'       => 'required|string|max:255',
             'deskripsi_barang'  => 'required|string',
@@ -50,11 +58,13 @@ class LostItemController extends Controller
             'gambar'            => 'required|image|mimes:jpeg,png,jpg,gif|max:8192',
         ]);
 
+        // Simpan gambar jika ada
         if ($request->hasFile('gambar')) {
             $path = $request->file('gambar')->store('barang-hilang', 'public');
             $validatedData['gambar'] = $path;
         }
 
+        // Simpan laporan 
         $request->user()->barangHilang()->create($validatedData);
 
         return redirect()->route('lost-items.index')->with('success', 'Laporan berhasil dibuat. Mohon tunggu validasi admin.');

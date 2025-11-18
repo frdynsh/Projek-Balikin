@@ -35,6 +35,13 @@ class FoundItemController extends Controller
      */
     public function create()
     {
+        $user = auth()->user();
+
+        if (!$user->nomor_telepon) {
+            return redirect()->route('profile.edit')
+                ->with('error', 'Harap lengkapi nomor telepon Anda sebelum membuat laporan barang temuan.');
+        }
+        
         return view('found-items.create');
     }
 
@@ -43,6 +50,7 @@ class FoundItemController extends Controller
      */
     public function store(Request $request)
     {
+        // Validasi input
         $validatedData = $request->validate([
             'nama_barang'       => 'required|string|max:255',
             'deskripsi_barang'  => 'required|string',
@@ -51,11 +59,13 @@ class FoundItemController extends Controller
             'gambar'            => 'required|image|mimes:jpeg,png,jpg,gif|max:8192',
         ]);
 
+        // Simpan gambar jika ada
         if ($request->hasFile('gambar')) {
             $path = $request->file('gambar')->store('barang-temuan', 'public');
             $validatedData['gambar'] = $path;
         }
 
+        // Simpan laporan 
         $request->user()->barangTemuan()->create($validatedData);
 
         return redirect()->route('found-items.index')->with('success', 'Laporan barang temuan berhasil dibuat. Mohon tunggu validasi admin.');

@@ -17,11 +17,6 @@
             <span class="absolute right-4 top-4 text-gray-300">
                 <i class="fas fa-user"></i>
             </span>
-            @error('name')
-                <p class="text-sm text-red-400 mt-2 bg-red-400/10 px-3 py-1 rounded-md border border-red-400/30 transition-all duration-300">
-                    {{ $message }}
-                </p>
-            @enderror
         </div>
 
         <!-- Email -->
@@ -31,11 +26,6 @@
             <span class="absolute right-4 top-4 text-gray-300">
                 <i class="fas fa-envelope"></i>
             </span>
-            @error('email')
-                <p class="text-sm text-red-400 mt-2 bg-red-400/10 px-3 py-1 rounded-md border border-red-400/30 transition-all duration-300">
-                    {{ $message }}
-                </p>
-            @enderror
         </div>
 
         <!-- Password -->
@@ -45,11 +35,6 @@
             <span class="absolute right-4 top-4 text-gray-300">
                 <i class="fas fa-lock"></i>
             </span>
-            @error('password')
-                <p class="text-sm text-red-400 mt-2 bg-red-400/10 px-3 py-1 rounded-md border border-red-400/30 transition-all duration-300">
-                    {{ $message }}
-                </p>
-            @enderror
         </div>
 
         <!-- Confirm Password -->
@@ -59,11 +44,6 @@
             <span class="absolute right-4 top-4 text-gray-300">
                 <i class="fas fa-lock"></i>
             </span>
-            @error('password_confirmation')
-                <p class="text-sm text-red-400 mt-2 bg-red-400/10 px-3 py-1 rounded-md border border-red-400/30 transition-all duration-300">
-                    {{ $message }}
-                </p>
-            @enderror
         </div>
 
         <!-- Submit -->

@@ -22,9 +22,6 @@
         <div class="mb-5 relative">
             <input id="email" type="email" name="email" placeholder="Email" required autofocus
                 class="w-full p-4 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-400">
-                @error('email')
-                    <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
-                @enderror
         </div>
 
         <button type="submit"
