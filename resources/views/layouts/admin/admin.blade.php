@@ -11,14 +11,23 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+        <style>
+            [x-cloak] { display: none !important; }
+        </style>
     </head>
     <body class="font-sans antialiased">
 
-        <div class="flex h-screen bg-white dark:bg-gray-800">
+        <div x-data="{ sidebarOpen: false }" class="flex h-screen bg-white dark:bg-gray-800">
+
+            <div x-show="sidebarOpen" @click="sidebarOpen = false" 
+                 class="fixed inset-0 z-20 bg-black bg-opacity-50 transition-opacity md:hidden" 
+                 x-cloak>
+            </div>
 
             @include('layouts.admin.sidebar')
 
-            <div class="flex-1 flex flex-col overflow-hidden">
+            <div class="flex-1 flex flex-col overflow-hidden relative z-10">
 
                 @include('layouts.admin.header')
 
@@ -28,11 +37,9 @@
 
                 </main>
 
-                
             </div>
 
         </div>
         
-    <script src="//unpkg.com/alpinejs" defer></script>
     </body>
 </html>
