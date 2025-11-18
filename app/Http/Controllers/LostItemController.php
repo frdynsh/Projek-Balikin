@@ -7,7 +7,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class LostItemController extends Controller
-{
+{   
+    /**
+     * Menampilkan semua daftar barang hilang yang sudah disetujui admin.
+     */
     public function index(Request $request)
     {   
         $search = $request->input('search');
@@ -26,11 +29,17 @@ class LostItemController extends Controller
         return view('lost-items.index', compact('barangHilangs', 'search'));
     }
 
+    /**
+     * Menampilkan form untuk membuat laporan barang hilang baru.
+     */
     public function create()
     {
         return view('lost-items.create');
     }
 
+    /**
+     * Menyimpan laporan barang hilang ke database.
+     */
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -51,6 +60,9 @@ class LostItemController extends Controller
         return redirect()->route('lost-items.index')->with('success', 'Laporan berhasil dibuat. Mohon tunggu validasi admin.');
     }
 
+    /**
+     * Menampilkan halaman detail untuk satu barang hilang yang statusnya diterima.
+     */
     public function show(BarangHilang $lost_item)
     {
         if ($lost_item->status !== 'diterima') {
@@ -61,6 +73,9 @@ class LostItemController extends Controller
         return view('lost-items.show', ['barangHilang' => $lost_item]);
     }
 
+    /**
+     * Menampilkan form edit laporan, hanya dapat dilakukan oleh pemilik laporan.
+     */
     public function edit(BarangHilang $lost_item)
     {
         if (auth()->id() !== $lost_item->user_id) {
@@ -70,6 +85,9 @@ class LostItemController extends Controller
         return view('lost-items.edit', ['barangHilang' => $lost_item]);
     }
 
+    /**
+     * Memproses pembaruan laporan dan mengatur status kembali ke ‘menunggu’.
+     */
     public function update(Request $request, BarangHilang $lost_item)
     {
         if (auth()->id() !== $lost_item->user_id) {
@@ -95,6 +113,10 @@ class LostItemController extends Controller
 
         return redirect()->route('lost-items.index')->with('success', 'Laporan berhasil diperbarui dan akan divalidasi ulang.');
     }
+
+    /**
+     * Menandai laporan sebagai selesai (diarsipkan), hanya bisa dilakukan oleh pemilik laporan.
+     */
     public function markAsDone(BarangHilang $lost_item)
     {
         if (auth()->id() !== $lost_item->user_id) {

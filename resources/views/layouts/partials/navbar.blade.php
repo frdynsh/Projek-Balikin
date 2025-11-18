@@ -1,5 +1,5 @@
 <nav x-data="{ open: false, dropdown: false }" 
-     class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-transparent text-white transition duration-300">
+     class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-transparent text-gray-900 dark:text-white transition duration-300">
     <div class="mx-auto px-10 py-4 lg:px-8">
         <div class="flex justify-between h-16 items-center">
             
@@ -7,9 +7,9 @@
             <div class="flex items-center space-x-3">
                 <a href="{{ route('dashboard') }}" class="flex items-center space-x-3">
                     <img src="{{ asset('images/icon/logo.png') }}" alt="Logo" class="h-10 w-10 rounded-full">
-                    <div class="hidden md:block">
-                        <div class="font-bold text-xl text-purple-400">BALIKIN</div>
-                        <div class="text-sm text-gray-300">Universitas Singaperbangsa Karawang</div>
+                    <div>
+                        <div class="font-bold text-xl text-purple-600 dark:text-purple-400">BALIKIN</div>
+                        <div class="text-sm text-gray-700 dark:text-gray-300">Universitas Singaperbangsa Karawang</div>
                     </div>
                 </a>
             </div>
@@ -27,22 +27,38 @@
                             class="inline-flex items-center text-sm font-medium hover:text-purple-400 transition">
                         <span>Lapor Barang</span>
                         <svg class="ml-1 h-4 w-4 transform transition-transform duration-200" 
-                             :class="{'rotate-180': open}" xmlns="http://www.w3.org/2000/svg" 
-                             viewBox="0 0 20 20" fill="currentColor">
+                            :class="{'rotate-180': open}" xmlns="http://www.w3.org/2000/svg" 
+                            viewBox="0 0 20 20" fill="currentColor">
                             <path fill-rule="evenodd" 
-                                  d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.25a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z" 
-                                  clip-rule="evenodd" />
+                                d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.25a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z" 
+                                clip-rule="evenodd" />
                         </svg>
                     </button>
-                    <div x-show="open" @click.away="open = false" 
-                         x-transition 
-                         class="absolute left-0 mt-2 w-48 bg-gray-900/90 border border-gray-700 rounded-lg shadow-lg py-1 z-50">
-                        <a href="{{ route('lost-items.create') }}" 
-                           class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Barang Hilang</a>
-                        <a href="{{ route('found-items.create') }}" 
-                           class="block px-4 py-2 text-sm text-gray-300 hover:bg-gray-700">Barang Temuan</a>
+
+                    <div x-show="open" @click.away="open = false"
+                        x-transition
+                        class="absolute left-0 mt-2 w-48 
+                                bg-white/90 dark:bg-gray-900/90 
+                                border border-gray-300 dark:border-gray-700 
+                                rounded-lg shadow-lg py-1 z-50">
+
+                        <a href="{{ route('lost-items.create') }}"
+                        class="block px-4 py-2 text-sm 
+                                text-gray-700 dark:text-gray-300 
+                                hover:bg-gray-100 dark:hover:bg-gray-700">
+                            Barang Hilang
+                        </a>
+
+                        <a href="{{ route('found-items.create') }}"
+                        class="block px-4 py-2 text-sm 
+                                text-gray-700 dark:text-gray-300 
+                                hover:bg-gray-100 dark:hover:bg-gray-700">
+                            Barang Temuan
+                        </a>
+
                     </div>
                 </div>
+
 
                 <a href="{{ route('lost-items.index') }}" 
                    class="{{ request()->routeIs('lost-items.*') ? 'text-purple-400 border-b-2 border-purple-400' : 'hover:text-purple-400' }} text-sm font-medium transition">
@@ -95,25 +111,36 @@
     </div>
 
     <!-- Mobile Menu -->
-    <div x-show="open" class="md:hidden border-t border-white/20 bg-black/50 backdrop-blur-md">
+    <div x-show="open" x-transition class="md:hidden border-t border-white/20 bg-black/70 backdrop-blur-md">
         <div class="px-4 py-3 space-y-2">
-            <a href="{{ route('dashboard') }}" class="block text-gray-200 hover:text-purple-400">Beranda</a>
-            <a href="{{ route('lost-items.index') }}" class="block text-gray-200 hover:text-purple-400">Barang Hilang</a>
-            <a href="{{ route('found-items.index') }}" class="block text-gray-200 hover:text-purple-400">Barang Temuan</a>
+            <a href="{{ route('dashboard') }}" class="block text-gray-200 hover:text-purple-400 py-2 px-2 rounded transition">Beranda</a>
+            <a href="{{ route('lost-items.index') }}" class="block text-gray-200 hover:text-purple-400 py-2 px-2 rounded transition">Barang Hilang</a>
+            <a href="{{ route('found-items.index') }}" class="block text-gray-200 hover:text-purple-400 py-2 px-2 rounded transition">Barang Temuan</a>
 
-            <div class="pt-2 border-t border-white/20">
-                <div class="text-xs text-gray-400 uppercase">Lapor Barang</div>
-                <a href="{{ route('lost-items.create') }}" class="block text-gray-200 hover:text-purple-400">Barang Hilang</a>
-                <a href="{{ route('found-items.create') }}" class="block text-gray-200 hover:text-purple-400">Barang Temuan</a>
+            <!-- Collapsible Lapor Barang -->
+            <div x-data="{ dropdownMobile: false }" class="mt-2">
+                <button @click="dropdownMobile = !dropdownMobile" 
+                        class="w-full flex justify-between items-center text-gray-200 hover:text-purple-400 py-2 px-2 rounded transition">
+                    <span>Lapor Barang</span>
+                    <svg :class="{'rotate-180': dropdownMobile}" class="w-4 h-4 transition-transform" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div x-show="dropdownMobile" x-transition class="pl-4 mt-1 space-y-1">
+                    <a href="{{ route('lost-items.create') }}" class="block text-gray-200 hover:text-purple-400 py-1 px-2 rounded transition">Barang Hilang</a>
+                    <a href="{{ route('found-items.create') }}" class="block text-gray-200 hover:text-purple-400 py-1 px-2 rounded transition">Barang Temuan</a>
+                </div>
             </div>
 
+            <!-- Profile & Logout -->
             <div class="pt-3 border-t border-white/20">
-                <a href="{{ route('profile.edit') }}" class="block text-gray-200 hover:text-purple-400">Profil</a>
+                <a href="{{ route('profile.edit') }}" class="block text-gray-200 hover:text-purple-400 py-2 px-2 rounded transition">Profil</a>
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-                    <button type="submit" class="block text-red-400 hover:underline mt-2">Logout</button>
+                    <button type="submit" class="block text-red-400 hover:underline mt-2 py-2 px-2 rounded transition w-full text-left">Logout</button>
                 </form>
             </div>
         </div>
     </div>
+
 </nav>

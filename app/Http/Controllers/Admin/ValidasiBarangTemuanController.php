@@ -54,4 +54,22 @@ class ValidasiBarangTemuanController extends Controller
         $found_item->update(['status' => 'ditolak']);
         return redirect()->route('admin.validasi.found-items.pending')->with('success', 'Laporan barang temuan telah ditolak.');
     }
+
+    /**
+     * Hapus permanen laporan barang temuan dari arsip admin.
+     */
+    public function destroy(BarangTemuan $found_item)
+    {
+        // Hapus file gambar jika ada
+        if ($found_item->gambar) {
+            Storage::disk('public')->delete($found_item->gambar);
+        }
+
+        // Hapus data dari database
+        $found_item->delete();
+
+        // Redirect kembali ke halaman ARSIP ADMIN
+        return redirect()->route('admin.validasi.found-items.index')
+            ->with('success', 'Laporan barang temuan telah dihapus permanen.');
+    }
 }

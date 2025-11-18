@@ -6,7 +6,17 @@
 <div class="glass-card w-full max-w-md p-8 rounded-3xl shadow-2xl text-white backdrop-blur-xl">
 
     <h2 class="text-3xl font-bold text-center mb-6">Login</h2>
-    
+
+    @if ($errors->any())
+        <div class="mb-4 p-3 rounded-lg bg-red-500/20 border border-red-400 text-red-200 text-sm">
+            <ul class="list-disc ml-4">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form method="POST" action="{{ route('login') }}">
         @csrf
 

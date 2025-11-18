@@ -58,6 +58,7 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::get('/validasi/found-items', [ValidasiBarangTemuanController::class, 'index'])->name('validasi.found-items.index');
     Route::patch('/validasi/found-items/{found_item}/setujui', [ValidasiBarangTemuanController::class, 'setujui'])->name('validasi.found-items.setujui');
     Route::patch('/validasi/found-items/{found_item}/tolak', [ValidasiBarangTemuanController::class, 'tolak'])->name('validasi.found-items.tolak');
+    Route::delete('/validasi/found-items/{found_item}', [ValidasiBarangTemuanController::class, 'destroy'])->name('validasi.found-items.destroy');
 });
 
 

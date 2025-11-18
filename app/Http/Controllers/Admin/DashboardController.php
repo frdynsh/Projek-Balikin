@@ -27,9 +27,12 @@ class DashboardController extends Controller
         $aktivitasHilang = BarangHilang::latest()->get();
         $aktivitasTemuan = BarangTemuan::latest()->get();
 
-        $aktivitasTerbaru = $aktivitasHilang->merge($aktivitasTemuan)
-                                            ->sortByDesc('created_at')
-                                            ->take(5);
+        $aktivitasTerbaru = $aktivitasHilang
+            ->concat($aktivitasTemuan)
+            ->sortByDesc('created_at')
+            ->take(5)
+            ->values();
+
 
         // 3. Kirim semua data ke view
         return view('admin.dashboard', compact(

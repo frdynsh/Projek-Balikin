@@ -22,7 +22,7 @@ class UserController extends Controller
     }
 
     /**
-     * FUNGSI BARU: Menampilkan formulir untuk membuat user baru.
+     * FUNGSI Menampilkan formulir untuk membuat user baru.
      */
     public function create()
     {
@@ -30,7 +30,7 @@ class UserController extends Controller
     }
 
     /**
-     * FUNGSI BARU: Menyimpan user baru ke database.
+     * FUNGSI Menyimpan user baru ke database.
      */
     public function store(Request $request)
     {
@@ -60,7 +60,7 @@ class UserController extends Controller
     }
 
     /**
-     * FUNGSI BARU: Menampilkan formulir untuk mengedit user.
+     * FUNGSI Menampilkan formulir untuk mengedit user.
      */
     public function edit(User $user)
     {
@@ -68,7 +68,7 @@ class UserController extends Controller
     }
 
     /**
-     * FUNGSI BARU: Memperbarui data user di database.
+     * FUNGSI Memperbarui data user di database.
      */
     public function update(Request $request, User $user)
     {

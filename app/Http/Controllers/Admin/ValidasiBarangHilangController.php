@@ -64,7 +64,7 @@ class ValidasiBarangHilangController extends Controller
     {
         // Hapus file gambar jika ada
         if ($lost_item->gambar) {
-            Storage::delete('public/' . $lost_item->gambar);
+            Storage::disk('public')->delete($lost_item->gambar);
         }
 
         $lost_item->delete();

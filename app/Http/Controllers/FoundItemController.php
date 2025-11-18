@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Storage;
 class FoundItemController extends Controller
 {
     /**
-     * Menampilkan daftar semua barang temuan yang sudah disetujui.
+     * Menampilkan semua daftar barang temuan yang sudah disetujui admin.
      */
     public function index(Request $request)
     {
@@ -62,7 +62,7 @@ class FoundItemController extends Controller
     }
 
     /**
-     * Menampilkan halaman detail untuk satu barang temuan.
+     * Menampilkan halaman detail untuk satu barang temuan yang statusnya diterima.
      */
     public function show(BarangTemuan $found_item)
     {
@@ -75,7 +75,7 @@ class FoundItemController extends Controller
     }
 
     /**
-     * Menampilkan formulir untuk mengedit laporan.
+     * Menampilkan form edit laporan, hanya dapat dilakukan oleh pemilik laporan.
      */
     public function edit(BarangTemuan $found_item)
     {
@@ -87,7 +87,7 @@ class FoundItemController extends Controller
     }
 
     /**
-     * Memproses dan menyimpan perubahan dari form edit.
+     * Memproses pembaruan laporan dan mengatur status kembali ke ‘menunggu’.
      */
     public function update(Request $request, BarangTemuan $found_item)
     {
@@ -114,6 +114,10 @@ class FoundItemController extends Controller
 
         return redirect()->route('found-items.index')->with('success', 'Laporan berhasil diperbarui dan akan divalidasi ulang.');
     }
+
+    /**
+     * Menandai laporan sebagai selesai (diarsipkan), hanya bisa dilakukan oleh pemilik laporan.
+     */
     public function markAsDone(BarangTemuan $found_item)
     {
         if (auth()->id() !== $found_item->user_id) {
@@ -122,6 +126,7 @@ class FoundItemController extends Controller
         $found_item->update(['status' => 'selesai']);
         return redirect()->route('found-items.index')->with('success', 'Laporan telah ditandai sebagai selesai dan diarsipkan.');
     }
+
     /**
      * Menghapus laporan dari database.
      */

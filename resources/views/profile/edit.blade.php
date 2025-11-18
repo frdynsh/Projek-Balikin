@@ -29,21 +29,21 @@
 
             {{-- Profile Section --}}
             <div x-show="tab === 'profile'" x-transition>
-                <div class="bg-gray-800 shadow sm:rounded-lg p-6 sm:p-8">
+                <div>
                     @include('profile.partials.update-profile-information-form')
                 </div>
             </div>
 
             {{-- Update Password Section --}}
             <div x-show="tab === 'password'" x-transition>
-                <div class="bg-gray-800 shadow sm:rounded-lg p-6 sm:p-8">
+                <div>
                     @include('profile.partials.update-password-form')
                 </div>
             </div>
 
             {{-- Delete Account Section --}}
             <div x-show="tab === 'delete'" x-transition>
-                <div class="bg-gray-800 shadow sm:rounded-lg p-6 sm:p-8">
+                <div>
                     @include('profile.partials.delete-user-form')
                 </div>
             </div>

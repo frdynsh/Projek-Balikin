@@ -51,11 +51,11 @@
                                         <button type="button" 
                                                 data-id="{{ $barang->id }}"
                                                 data-nama="{{ $barang->nama_barang }}"
-                                                data-route="{{ route('found-items.destroy', $barang->id) }}"
+                                                data-route="{{ route('admin.validasi.found-items.destroy', $barang->id) }}"
                                                 class="open-delete-modal text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300 font-semibold text-sm">
                                             Hapus Permanen
                                         </button>
-                                        <form id="delete-form-{{ $barang->id }}" action="{{ route('found-items.destroy', $barang->id) }}" method="POST" class="hidden">
+                                        <form id="delete-form-{{ $barang->id }}" action="{{ route('admin.validasi.found-items.destroy', $barang->id) }}" method="POST" class="hidden">
                                             @csrf
                                             @method('DELETE')
                                         </form>

@@ -21,12 +21,14 @@
             @include('layouts.partials.navbar')
 
             <!-- Page Content -->
-            <main>
+            <main class="pt-12 md:pt-0">
                 {{ $slot }}
             </main>
 
             @include('layouts.partials.footer')
         </div>
+
+    <script src="//unpkg.com/alpinejs" defer></script>
     </body>
 </html>
 

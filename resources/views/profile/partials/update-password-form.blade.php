@@ -1,4 +1,5 @@
-<section class="text-gray-100 border border-gray-700 rounded-lg shadow-sm p-8">
+<section class="text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-700 
+                rounded-lg shadow-sm p-8 bg-white dark:bg-gray-800">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
         <!-- Kiri: Header dan Avatar -->
         <div>

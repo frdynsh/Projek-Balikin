@@ -1,4 +1,5 @@
-<section class="bg-white dark:bg-gray-800 shadow-sm rounded-xl border border-gray-200 dark:border-gray-700 p-6 space-y-6">
+<section class="text-gray-900 dark:text-gray-100 border border-gray-300 dark:border-gray-700 
+                rounded-lg shadow-sm p-8 bg-white dark:bg-gray-800">
     <header class="border-b border-gray-200 dark:border-gray-700 pb-4">
         <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-100">
             {{ __('Delete Account') }}
@@ -8,7 +9,7 @@
         </p>
     </header>
 
-    <div class="flex items-center justify-between">
+    <div class="flex items-center justify-between mt-4">
         <span class="text-sm text-gray-600 dark:text-gray-400">
             {{ __('This action cannot be undone.') }}
         </span>
