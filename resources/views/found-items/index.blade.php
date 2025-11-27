@@ -21,33 +21,95 @@
 
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-between items-center mb-8">
-                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                    {{ __('Daftar Barang Temuan') }}
+                
+                {{-- TITLE --}}
+                <h2 class="font-semibold text-2xl text-gray-800 dark:text-gray-200 leading-tight">
+                    Daftar Barang Temuan
                 </h2>
                 
-                {{-- Bagian Search Bar --}}
-                <form action="{{ route('found-items.index') }}" method="GET" class="w-full max-w-sm">
-                    <div class="relative">
+                {{-- SEARCH + SORT WRAPPER --}}
+                <div class="flex flex-col md:flex-row items-center gap-3 w-full md:w-auto">
+
+                    {{-- SEARCH --}}
+                    <form action="{{ route('found-items.index') }}" method="GET" class="relative w-full max-w-sm">
                         <input 
                             type="text" 
                             name="search" 
-                            placeholder="Cari nama barang..." 
-                            value="{{ request('search') }}"
-                            class="block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-purple-500 dark:focus:border-purple-600 focus:ring-purple-500 dark:focus:ring-purple-600 rounded-md shadow-sm"
+                            placeholder="Cari nama barang..."
+                            value="{{ old('search', $search) }}"
+                            class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 
+                                focus:ring-purple-500 focus:border-purple-500 
+                                px-3 py-2 rounded-lg shadow-sm"
                         >
-                        @if (request('search'))
-                            <a href="{{ route('found-items.index') }}" class="absolute inset-y-0 right-0 flex items-center pr-3 text-sm text-gray-400 hover:text-gray-600 dark:hover:text-gray-200" title="Hapus Pencarian">
-                                ✕
+                        <button type="submit" 
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 dark:text-gray-500 hover:text-purple-600">
+                            <svg xmlns="http://www.w3.org/2000/svg" 
+                                fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="w-5 h-5">
+                                <path stroke-linecap="round" stroke-linejoin="round"
+                                    d="M21 21l-5.2-5.2m1.7-4.8a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </button>
+                    </form>
+
+                    {{-- SORT DROPDOWN --}}
+                    <div x-data="{ open: false }" class="relative">
+                        {{-- BUTTON --}}
+                        <button 
+                            @click="open = !open"
+                            class="flex items-center gap-2 px-3 py-2 rounded-lg shadow-sm
+                                bg-white dark:bg-gray-900 border border-gray-300 dark:border-gray-700
+                                text-gray-700 dark:text-gray-300
+                                hover:border-purple-600 transition whitespace-nowrap">
+                            {{ 
+                                $sort == 'latest' 
+                                    ? 'Barang Terbaru' 
+                                    : ($sort == 'oldest' 
+                                        ? 'Barang Tertua' 
+                                        : ($sort == 'az' 
+                                            ? 'Abjad Meningkat' 
+                                            : 'Abjad Menurun')) 
+                            }}
+                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" 
+                                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+
+                        {{-- DROPDOWN --}}
+                        <div 
+                            x-show="open" 
+                            @click.away="open = false"
+                            x-transition
+                            class="absolute right-0 mt-2 w-40 rounded-lg shadow-lg 
+                                bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 z-40">
+
+                            <a href="?search={{ $search }}&sort=latest"
+                                class="block px-4 py-2 hover:bg-purple-600 hover:text-white dark:hover:bg-purple-700">
+                                Barang Terbaru
                             </a>
-                        @else
-                            <button type="submit" class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                            </button>
-                        @endif
+
+                            <a href="?search={{ $search }}&sort=oldest"
+                                class="block px-4 py-2 hover:bg-purple-600 hover:text-white dark:hover:bg-purple-700">
+                                Barang Tertua
+                            </a>
+
+                            <a href="?search={{ $search }}&sort=az"
+                                class="block px-4 py-2 hover:bg-purple-600 hover:text-white dark:hover:bg-purple-700">
+                                Abjad Meningkat
+                            </a>
+
+                            <a href="?search={{ $search }}&sort=za"
+                                class="block px-4 py-2 hover:bg-purple-600 hover:text-white dark:hover:bg-purple-700">
+                                Abjad Menurun
+                            </a>
+                        </div>
                     </div>
-                </form>
+                </div>
             </div>
 
+            {{-- ITEMS GRID --}}
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 @forelse ($barangTemuans as $barang)
                     <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg flex flex-col">
@@ -60,7 +122,7 @@
                             <h3 class="font-semibold text-lg text-gray-900 dark:text-gray-100">{{ $barang->nama_barang }}</h3>
                             <p class="mt-2 text-gray-800 dark:text-gray-200 flex-grow">{{ Str::limit($barang->deskripsi_barang, 100) }}</p>
                             <div class="mt-4 pt-4 border-t dark:border-gray-600 flex justify-between items-center">
-                                <a href="{{ route('found-items.show', $barang) }}" class="text-purple-600 dark:text-purple-400 hover:underline">Lihat Detail</a>
+                                <a href="{{ route('found-items.show', $barang) }}?search={{ $search }}&sort={{ $sort }}" class="text-purple-600 dark:text-purple-400 hover:underline">Lihat Detail</a>
                                 
                                 <div class="flex space-x-2">
                                     @if (auth()->id() === $barang->user_id)

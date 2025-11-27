@@ -12,11 +12,13 @@ class LostItemController extends Controller
      * Menampilkan semua daftar barang hilang yang sudah disetujui admin.
      */
     public function index(Request $request)
-    {   
+    {
         $search = $request->input('search');
+        $sort = $request->input('sort', 'latest');
 
         $query = BarangHilang::where('status', 'diterima');
 
+        // Searching
         if (!empty($search)) {
             $query->where(function ($q) use ($search) {
                 $q->where('nama_barang', 'like', '%' . $search . '%')
@@ -24,9 +26,28 @@ class LostItemController extends Controller
             });
         }
 
-        $barangHilangs = $query->latest()->paginate(9);
-        $barangHilangs->appends(['search' => $search]);
-        return view('lost-items.index', compact('barangHilangs', 'search'));
+        // === SORTING ===
+        switch ($sort) {
+            case 'oldest':
+                $query->orderBy('tgl_kehilangan', 'asc');
+                break;
+
+            case 'az':
+                $query->orderBy('nama_barang', 'asc');
+                break;
+
+            case 'za':
+                $query->orderBy('nama_barang', 'desc');
+                break;
+
+            default: // latest
+                $query->orderBy('tgl_kehilangan', 'desc');
+                break;
+        }
+
+        $barangHilangs = $query->paginate(3)->withQueryString();
+
+        return view('lost-items.index', compact('barangHilangs', 'search', 'sort'));
     }
 
     /**

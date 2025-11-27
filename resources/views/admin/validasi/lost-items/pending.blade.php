@@ -32,21 +32,30 @@
                                     <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">{{ $barang->user->name }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">{{ $barang->created_at->isoFormat('D MMM YYYY') }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap flex items-center space-x-3">
-                                        <form action="{{ route('admin.validasi.lost-items.setujui', $barang->id) }}" method="POST">
+                                        <form id="form-setujui-{{ $barang->id }}" action="{{ route('admin.validasi.lost-items.setujui', $barang->id) }}" method="POST" class="hidden">
                                             @csrf
                                             @method('PATCH')
-                                            <button type="submit" class="inline-flex items-center px-3 py-1 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                                                Setujui
-                                            </button>
-                                        </form>
+                                        </form>                                            </button>
                                         
-                                        <form action="{{ route('admin.validasi.lost-items.tolak', $barang->id) }}" method="POST">
+                                        <button 
+                                            data-action="setujui"
+                                            data-name="{{ $barang->nama_barang }}"
+                                            data-form="form-setujui-{{ $barang->id }}"
+                                            class="px-3 py-1 bg-green-500 text-white text-xs font-semibold rounded-md hover:bg-green-600 transition duration-150">
+                                            Setujui
+                                        </button>
+
+                                        <form id="form-tolak-{{ $barang->id }}" action="{{ route('admin.validasi.lost-items.tolak', $barang->id) }}" method="POST" class="hidden">
                                             @csrf
                                             @method('PATCH')
-                                            <button type="submit" class="inline-flex items-center px-3 py-1 bg-red-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                                                Tolak
-                                            </button>
                                         </form>
+                                        <button 
+                                            data-action="tolak"
+                                            data-name="{{ $barang->nama_barang }}"
+                                            data-form="form-tolak-{{ $barang->id }}"
+                                            class="px-3 py-1 bg-red-500 text-white text-xs font-semibold rounded-md hover:bg-red-600 transition duration-150">
+                                            Tolak
+                                        </button>
                                     </td>
                                 </tr>
                                 @empty

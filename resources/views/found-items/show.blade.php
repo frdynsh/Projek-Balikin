@@ -24,7 +24,7 @@
                     {{ __('Detail Barang Temuan') }}
                 </h2>
 
-                <a href="{{ route('found-items.index') }}" 
+                <a href="{{ route('found-items.index') }}?search={{ request('search') }}&sort={{ request('sort') }}" 
                    class="inline-flex items-center px-4 py-2 text-sm font-semibold text-purple-600 dark:text-purple-400 
                           border border-purple-600 dark:border-purple-400 rounded-md hover:bg-purple-600 hover:text-white 
                           transition duration-150 ease-in-out">
@@ -80,14 +80,24 @@
                         @if(auth()->id() === $barangTemuan->user_id && $barangTemuan->status === 'diterima')
                         <div class="mt-6 pt-6 border-t dark:border-gray-600">
                             <h4 class="font-semibold text-gray-900 dark:text-gray-100">Kelola Laporan</h4>
-                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Apakah barang ini sudah dikembalikan ke pemiliknya?</p>
-                            <form method="POST" action="{{ route('found-items.markAsDone', $barangTemuan) }}" class="mt-4">
+                            <p class="text-sm text-gray-600 dark:text-gray-400 mt-1 mb-1">Apakah barang ini sudah dikembalikan ke pemiliknya?</p>
+
+                            <!-- Hidden Form untuk SweetAlert -->
+                            <form id="mark-done-form-{{ $barangTemuan->id }}" method="POST" action="{{ route('found-items.markAsDone', $barangTemuan) }}" class="hidden">
                                 @csrf
                                 @method('PATCH')
-                                <x-primary-button class="bg-blue-600 hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-800 focus:ring-blue-500">
-                                    Tandai sebagai Selesai
-                                </x-primary-button>
                             </form>
+
+                            <!-- Tombol -->
+                            <x-primary-button
+                                type="button"
+                                data-action="selesai"
+                                data-name="{{ $barangTemuan->nama_barang }}"
+                                data-form="mark-done-form-{{ $barangTemuan->id }}"
+                                class="bg-blue-600 hover:bg-blue-700 focus:bg-blue-700 active:bg-blue-800 focus:ring-blue-500"
+                            >
+                                Tandai sebagai Selesai
+                            </x-primary-button>
                         </div>
                         @endif
                     </div>

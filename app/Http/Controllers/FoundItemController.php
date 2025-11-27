@@ -14,20 +14,35 @@ class FoundItemController extends Controller
     public function index(Request $request)
     {
         $search = $request->input('search');
+        $sort = $request->input('sort', 'latest'); 
 
-        $query = Barangtemuan::where('status', 'diterima');
+        $query = BarangTemuan::where('status', 'diterima');
 
         if (!empty($search)) {
             $query->where(function ($q) use ($search) {
                 $q->where('nama_barang', 'like', '%' . $search . '%')
-                  ->orWhere('deskripsi_barang', 'like', '%' . $search . '%');
+                ->orWhere('deskripsi_barang', 'like', '%' . $search . '%');
             });
         }
 
-        $barangTemuans = $query->latest()->paginate(9);
-        $barangTemuans->appends(['search' => $search]);
+        // Logika sorting
+        switch ($sort) {
+            case 'oldest':
+                $query->orderBy('created_at', 'asc');
+                break;
+            case 'az':
+                $query->orderBy('nama_barang', 'asc');
+                break;
+            case 'za':
+                $query->orderBy('nama_barang', 'desc');
+                break;
+            default: // latest
+                $query->orderBy('created_at', 'desc');
+        }
 
-        return view('found-items.index', compact('barangTemuans', 'search'));
+        $barangTemuans = $query->paginate(3)->withQueryString(); // otomatis mempertahankan query search & sort
+
+        return view('found-items.index', compact('barangTemuans', 'search', 'sort'));
     }
 
     /**

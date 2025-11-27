@@ -53,12 +53,16 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     Route::patch('/validasi/lost-items/{lost_item}/setujui', [ValidasiBarangHilangController::class, 'setujui'])->name('validasi.lost-items.setujui');
     Route::patch('/validasi/lost-items/{lost_item}/tolak', [ValidasiBarangHilangController::class, 'tolak'])->name('validasi.lost-items.tolak');
     Route::delete('/validasi/lost-items/{lost_item}', [ValidasiBarangHilangController::class, 'destroy'])->name('validasi.lost-items.destroy');
-    
+    Route::get('/validasi/lost-items/export-excel', [ValidasiBarangHilangController::class, 'exportExcel'])->name('validasi.lost-items.exportExcel');
+    Route::get('/validasi/lost-items/export-pdf', [ValidasiBarangHilangController::class, 'exportPdf'])->name('validasi.lost-items.exportPdf');
+
     Route::get('/validasi/found-items/pending', [ValidasiBarangTemuanController::class, 'pending'])->name('validasi.found-items.pending');
     Route::get('/validasi/found-items', [ValidasiBarangTemuanController::class, 'index'])->name('validasi.found-items.index');
     Route::patch('/validasi/found-items/{found_item}/setujui', [ValidasiBarangTemuanController::class, 'setujui'])->name('validasi.found-items.setujui');
     Route::patch('/validasi/found-items/{found_item}/tolak', [ValidasiBarangTemuanController::class, 'tolak'])->name('validasi.found-items.tolak');
     Route::delete('/validasi/found-items/{found_item}', [ValidasiBarangTemuanController::class, 'destroy'])->name('validasi.found-items.destroy');
+    Route::get('/validasi/found-items/export-excel', [ValidasiBarangTemuanController::class, 'exportExcel'])->name('validasi.found-items.exportExcel');
+    Route::get('/validasi/found-items/export-pdf', [ValidasiBarangTemuanController::class, 'exportPdf'])->name('validasi.found-items.exportPdf');
 });
 
 

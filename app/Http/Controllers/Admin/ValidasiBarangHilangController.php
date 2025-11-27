@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\BarangHilang;
+use App\Exports\BarangHilangExport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
+use Spatie\Browsershot\Browsershot;
 
 class ValidasiBarangHilangController extends Controller
 {
@@ -71,5 +74,40 @@ class ValidasiBarangHilangController extends Controller
 
         // Redirect kembali ke halaman ARSIP ADMIN
         return redirect()->route('admin.validasi.lost-items.index')->with('success', 'Laporan telah dihapus permanen.');
+    }
+
+    /**
+     * Export Arsip ke Excel menggunakan Maatwebsite Excel
+     */
+    public function exportExcel()
+    {
+        return Excel::download(new BarangHilangExport, 'arsip_barang_hilang.xlsx');
+    }
+
+    /**
+     * Export PDF menggunakan Spatie Browsershot
+     */
+    public function exportPdf()
+    {
+        $barangHilangSelesai = BarangHilang::with('user')
+            ->where('status', '!=', 'pending')
+            ->latest()
+            ->get();
+
+        // Render view menjadi HTML
+        $html = view('admin.validasi.lost-items.pdf', compact('barangHilangSelesai'))->render();
+
+        // Tentukan path sementara file PDF
+        $filePath = storage_path('app/public/arsip_barang_hilang.pdf');
+
+        // Generate PDF dengan Browsershot dan simpan
+        \Spatie\Browsershot\Browsershot::html($html)
+            ->showBackground()
+            ->format('A4')
+            ->landscape()
+            ->save($filePath);
+
+        // Return file download menggunakan Laravel Response
+        return response()->download($filePath)->deleteFileAfterSend(true);
     }
 }
