@@ -13,8 +13,7 @@
             <tr class="bg-gray-200">
                 <th class="border px-4 py-2">Nama Barang</th>
                 <th class="border px-4 py-2">Pelapor</th>
-                <th class="border px-4 py-2">Tanggal Penemuan</th>
-                <th class="border px-4 py-2">Lokasi Penemuan</th>
+                <th class="border px-4 py-2">Tanggal Lapor</th>
                 <th class="border px-4 py-2">Status</th>
             </tr>
         </thead>
@@ -23,8 +22,7 @@
                 <tr>
                     <td class="border px-4 py-2">{{ $item->nama_barang }}</td>
                     <td class="border px-4 py-2">{{ $item->user->name }}</td>
-                    <td class="border px-4 py-2">{{ $item->tgl_penemuan }}</td>
-                    <td class="border px-4 py-2">{{ $item->lokasi_penemuan }}</td>
+                    <td class="border px-4 py-2">{{ $item->created_at }}</td>
                     <td class="border px-4 py-2">{{ ucfirst($item->status) }}</td>
                 </tr>
             @endforeach

@@ -19,6 +19,7 @@
                         <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
                             <thead class="bg-gray-50 dark:bg-gray-700">
                                 <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Gambar</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Barang</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Pelapor</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Tanggal Lapor</th>
@@ -28,41 +29,48 @@
                             <tbody class="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                                 @forelse ($barangTemuanPending as $barang)
                                 <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        @if ($barang->gambar)
+                                            <img src="{{ asset('storage/' . $barang->gambar) }}" alt="{{ $barang->nama_barang }}" class="w-16 h-16 object-cover rounded">
+                                        @else
+                                            <span class="text-gray-400 text-xs">Tidak ada</span>
+                                        @endif
+                                    </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">{{ $barang->nama_barang }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">{{ $barang->user->name }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">{{ $barang->created_at->isoFormat('D MMM YYYY') }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap flex items-center space-x-3">
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex justify-start items-center space-x-2 h-full">
+                                            <!-- Tombol Setujui -->
+                                            <button 
+                                                type="button"
+                                                data-name="{{ $barang->nama_barang }}"
+                                                data-form="setujui-form-{{ $barang->id }}"
+                                                data-action="setujui"
+                                                class="inline-flex items-center px-3 py-1 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150"
+                                            >
+                                                Setujui
+                                            </button>
+                                            <form id="setujui-form-{{ $barang->id }}" action="{{ route('admin.validasi.found-items.setujui', $barang->id) }}" method="POST" class="hidden">
+                                                @csrf
+                                                @method('PATCH')
+                                            </form>
 
-                                        <!-- Tombol Setujui -->
-                                        <button 
-                                            type="button"
-                                            data-name="{{ $barang->nama_barang }}"
-                                            data-form="setujui-form-{{ $barang->id }}"
-                                            data-action="setujui"
-                                            class="inline-flex items-center px-3 py-1 bg-green-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150"
-                                        >
-                                            Setujui
-                                        </button>
-                                        <form id="setujui-form-{{ $barang->id }}" action="{{ route('admin.validasi.found-items.setujui', $barang->id) }}" method="POST" class="hidden">
-                                            @csrf
-                                            @method('PATCH')
-                                        </form>
-
-                                        <!-- Tombol Tolak -->
-                                        <button 
-                                            type="button"
-                                            data-name="{{ $barang->nama_barang }}"
-                                            data-form="tolak-form-{{ $barang->id }}"
-                                            data-action="tolak"
-                                            class="inline-flex items-center px-3 py-1 bg-red-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150"
-                                        >
-                                            Tolak
-                                        </button>
-                                        <form id="tolak-form-{{ $barang->id }}" action="{{ route('admin.validasi.found-items.tolak', $barang->id) }}" method="POST" class="hidden">
-                                            @csrf
-                                            @method('PATCH')
-                                        </form>
-
+                                            <!-- Tombol Tolak -->
+                                            <button 
+                                                type="button"
+                                                data-name="{{ $barang->nama_barang }}"
+                                                data-form="tolak-form-{{ $barang->id }}"
+                                                data-action="tolak"
+                                                class="inline-flex items-center px-3 py-1 bg-red-500 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition ease-in-out duration-150"
+                                            >
+                                                Tolak
+                                            </button>
+                                            <form id="tolak-form-{{ $barang->id }}" action="{{ route('admin.validasi.found-items.tolak', $barang->id) }}" method="POST" class="hidden">
+                                                @csrf
+                                                @method('PATCH')
+                                            </form>
+                                        </div>
                                     </td>
                                 </tr>
                                 @empty

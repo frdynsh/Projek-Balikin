@@ -34,8 +34,7 @@
                                 <tr>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Barang</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Pelapor</th>
-                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Tanggal Ditemukan</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Lokasi Ditemukan</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Tanggal Lapor</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Status</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Aksi</th>
                                 </tr>
@@ -46,9 +45,8 @@
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $barang->nama_barang }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap">{{ $barang->user->name }}</td>
                                     <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">
-                                        {{ \Carbon\Carbon::parse($barang->tgl_penemuan)->translatedFormat('d F Y') }}
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-gray-900 dark:text-gray-100">{{ $barang->lokasi_penemuan }}</td>
+                                        {{ \Carbon\Carbon::parse($barang->created_at)->translatedFormat('d F Y') }}
+                                    </td>                                    
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         @php
                                             $color = [

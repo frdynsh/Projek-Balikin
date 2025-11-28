@@ -21,8 +21,7 @@ class BarangHilangExport implements FromCollection, WithHeadings
                 return [
                     'Nama Barang' => $item->nama_barang,
                     'Pelapor' => $item->user->name ?? '-',
-                    'Tanggal Kehilangan' => $item->tgl_kehilangan ? \Carbon\Carbon::parse($item->tgl_kehilangan)->format('d-m-Y') : '-',
-                    'Lokasi Kehilangan' => $item->lokasi_kehilangan ?? '-',
+                    'Tanggal Lapor' => $item->created_at ? \Carbon\Carbon::parse($item->created_at)->format('d-m-Y') : '-',
                     'Status' => ucfirst($item->status),
                 ];
             });
@@ -33,6 +32,6 @@ class BarangHilangExport implements FromCollection, WithHeadings
      */
     public function headings(): array
     {
-        return ['Nama Barang', 'Pelapor', 'Tanggal Kehilangan', 'Lokasi Kehilangan', 'Status'];
+        return ['Nama Barang', 'Pelapor', 'Tanggal Lapor', 'Status'];
     }
 }
