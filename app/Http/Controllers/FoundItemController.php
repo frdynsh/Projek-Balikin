@@ -151,20 +151,5 @@ class FoundItemController extends Controller
         $found_item->update(['status' => 'selesai']);
         return redirect()->route('found-items.index')->with('success', 'Laporan telah ditandai sebagai selesai dan diarsipkan.');
     }
-
-    /**
-     * Menghapus laporan dari database.
-     */
-    public function destroy(BarangTemuan $found_item)
-    {
-        if (auth()->user()->role !== 'admin') {
-            abort(403, 'HANYA ADMIN YANG DAPAT MENGHAPUS LAPORAN INI.');
-        }
-
-        if ($found_item->gambar) { Storage::delete($found_item->gambar); }
-        $found_item->delete();
-
-        return redirect()->route('found-items.index')->with('success', 'Laporan berhasil dihapus oleh Admin.');
-    }
 }
 
