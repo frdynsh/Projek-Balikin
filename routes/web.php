@@ -19,8 +19,8 @@ Route::get('/dashboard', [HomeController::class, 'dashboard'])
     ->name('dashboard');
 
 // --- ROUTE TERHADAP USER LOGIN ---
-Route::middleware(['auth', 'verified'])->group(function () {
-    
+Route::middleware(['auth', 'verified', 'role:user'])->group(function () {
+
     // Profile
     Route::prefix('profile')->name('profile.')->group(function () {
         Route::get('/', [ProfileController::class, 'edit'])->name('edit');
