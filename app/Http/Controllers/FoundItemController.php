@@ -40,7 +40,7 @@ class FoundItemController extends Controller
                 $query->orderBy('created_at', 'desc');
         }
 
-        $barangTemuans = $query->paginate(3)->withQueryString(); // otomatis mempertahankan query search & sort
+        $barangTemuans = $query->paginate(3)->withQueryString();
 
         return view('found-items.index', compact('barangTemuans', 'search', 'sort'));
     }

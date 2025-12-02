@@ -76,7 +76,7 @@
                     <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Ariella Chandra Naya</h3>
                     <div class="flex justify-center gap-4 mt-4">
                         {{-- GitHub --}}
-                        <a href="https://github.com/ariellachh" class="text-gray-500 hover:text-purple-500 transition">
+                        <a href="https://github.com/ariellachandra" class="text-gray-500 hover:text-purple-500 transition">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-6 h-6" viewBox="0 0 24 24">
                                 <path fill-rule="evenodd" d="M12 .5C5.73.5.5 5.74.5 12.02c0 5.1 3.29 9.43 7.86 10.96.58.1.8-.25.8-.56v-2c-3.2.7-3.87-1.38-3.87-1.38-.53-1.35-1.3-1.7-1.3-1.7-1.06-.72.08-.7.08-.7 1.17.09 1.78 1.2 1.78 1.2 1.04 1.78 2.73 1.26 3.4.97.1-.76.4-1.26.73-1.55-2.55-.3-5.23-1.28-5.23-5.7 0-1.26.45-2.28 1.2-3.08-.12-.3-.52-1.52.1-3.18 0 0 .98-.32 3.2 1.18a10.9 10.9 0 0 1 5.83 0c2.22-1.5 3.2-1.18 3.2-1.18.62 1.66.22 2.88.1 3.18.75.8 1.2 1.82 1.2 3.08 0 4.43-2.68 5.4-5.23 5.7.4.34.76 1 .76 2.02v3c0 .3.22.66.8.55A10.52 10.52 0 0 0 23.5 12C23.5 5.74 18.27.5 12 .5Z" clip-rule="evenodd" />
                             </svg>

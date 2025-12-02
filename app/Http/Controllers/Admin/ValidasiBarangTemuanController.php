@@ -101,7 +101,7 @@ class ValidasiBarangTemuanController extends Controller
         $filePath = storage_path('app/public/arsip_barang_temuan.pdf');
 
         // Generate PDF dengan Browsershot dan simpan
-        \Spatie\Browsershot\Browsershot::html($html)
+        Browsershot::html($html)
             ->showBackground()
             ->format('A4')
             ->landscape()

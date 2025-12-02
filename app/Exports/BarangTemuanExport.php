@@ -24,6 +24,9 @@ class BarangTemuanExport implements
 {
     private $rows;
 
+    /**
+     * Ambil data dari database
+     */
     public function collection()
     {
         $this->rows = BarangTemuan::with('user')
@@ -46,11 +49,17 @@ class BarangTemuanExport implements
         return $this->rows;
     }
 
+    /**
+     * Header kolom
+     */
     public function headings(): array
     {
         return ['Nama Barang', 'Pelapor', 'Tanggal Lapor', 'Status', 'Gambar'];
     }
 
+    /**
+     * Judul sheet
+     */
     public function title(): string
     {
         return 'Data Barang Temuan';

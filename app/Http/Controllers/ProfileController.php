@@ -42,7 +42,6 @@ class ProfileController extends Controller
             $path = $request->file('photo')->store('profile-photos', 'public');
             $user->profile_photo_path = $path;
         }
-        // ------------------------------------
 
         $user->save();
 
